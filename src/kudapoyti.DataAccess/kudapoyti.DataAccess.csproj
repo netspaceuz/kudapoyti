@@ -6,4 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="DbConstexts\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Configurations\" />
+    <Folder Include="SeedData\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\kudapoyti.domain\kudapoyti.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
