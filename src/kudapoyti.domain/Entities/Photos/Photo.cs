@@ -1,0 +1,17 @@
+﻿using kudapoyti.Domain.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace kudapoyti.Domain.Entities.Photos
+{
+    public class Photo:Auditable
+    {
+        public string Photo_path { get; set; } = String.Empty;
+        
+        public long Place_id { get; set; }
+        public virtual Places.Place Place { get; set; }
+    }
+}
