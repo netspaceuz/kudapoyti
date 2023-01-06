@@ -11,12 +11,12 @@ public class Comment : Auditable
 {
     public string Comments { get; set; } = String.Empty;
 
-    public string User_email { get; set; } = String.Empty;
+    public string UserEmail { get; set; } = String.Empty;
 
-    public string User_name { get; set; } = String.Empty;
+    public string UserName { get; set; } = String.Empty;
 
     public DateTime Date { get; set; }
 
-    public long Place_id { get; set; }
-    public virtual Places.Place Place { get; set; }
+    public long PlaceId { get; set; }
+    public virtual Places.Place Place { get; set; } = null!;
 }

@@ -12,7 +12,7 @@ namespace kudapoyti.Domain.Entities.Admin
 
         public string Email { get; set; }=String.Empty;
 
-        public string Telegram_contact { get; set; }= String.Empty; 
+        public string TelegramContact { get; set; }= String.Empty; 
 
         public string Password { get; set; }=String.Empty;
 
