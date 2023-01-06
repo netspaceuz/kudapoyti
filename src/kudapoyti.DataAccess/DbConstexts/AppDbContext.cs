@@ -1,0 +1,26 @@
+﻿using kudapoyti.Domain.Entities.Admin;
+using kudapoyti.Domain.Entities.Comment;
+using kudapoyti.Domain.Entities.Photos;
+using kudapoyti.Domain.Entities.Places;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace kudapoyti.DataAccess.DbConstexts;
+
+public class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions<AppDbContext> dbContextOptions) :
+        base(dbContextOptions)
+    {
+
+    }
+
+    public virtual DbSet<Admin> Admins { get; set; } = default!;
+    public virtual DbSet<Comment> Comments { get; set; }=default!;
+    public virtual DbSet<Photo> Photos { get;  set; } = default!;
+    public virtual DbSet<Place> Places { get; set; } = default!;
+}

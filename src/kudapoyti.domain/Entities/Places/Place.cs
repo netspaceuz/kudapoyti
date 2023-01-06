@@ -15,13 +15,13 @@ public class Place:BaseEntity
 
     public double rank { get; set; }
 
-    public long ranked_users_count { get; set; }    
+    public long rankedUsersCount { get; set; }    
 
     public long Ranked_point { get; set; }
 
     public string Location_link { get; set; }=String.Empty;
 
-    public string Place_site_url { get; set; }=String.Empty;
+    public string PlaceSiteUrl { get; set; }=String.Empty;
 
     public string Region { get; set; } = String.Empty;
 

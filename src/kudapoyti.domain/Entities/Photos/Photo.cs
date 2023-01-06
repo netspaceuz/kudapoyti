@@ -11,7 +11,7 @@ namespace kudapoyti.Domain.Entities.Photos
     {
         public string Photo_path { get; set; } = String.Empty;
         
-        public long Place_id { get; set; }
-        public virtual Places.Place Place { get; set; }
+        public long PlaceId { get; set; }
+        public virtual Places.Place Place { get; set; } = null!;
     }
 }
