@@ -1,4 +1,5 @@
 ﻿using kudapoyti.Domain.Common;
+using kudapoyti.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -26,5 +27,7 @@ namespace kudapoyti.Domain.Entities.Admins
         public string Salt { get; set; }=String.Empty;
 
         public bool IsHead { get; set; }=false;
+
+        public Role Role { get; set; }=0;
     }
 }
