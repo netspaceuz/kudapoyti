@@ -28,6 +28,6 @@ namespace kudapoyti.Domain.Entities.Admins
 
         public bool IsHead { get; set; }=false;
 
-        public Role Role { get; set; }=0;
+        public Role Role { get; set; }= Role.Admin;
     }
 }
