@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using kudapoyti.DataAccess.DbConstexts;
@@ -11,9 +12,11 @@ using kudapoyti.DataAccess.DbConstexts;
 namespace kudapoyti.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230107170812_nimadr")]
+    partial class nimadr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,10 +33,6 @@ namespace kudapoyti.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
@@ -49,15 +48,11 @@ namespace kudapoyti.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Salt")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("TelegramLink")
+                    b.Property<string>("TelegramContact")
                         .IsRequired()
                         .HasColumnType("text");
 
