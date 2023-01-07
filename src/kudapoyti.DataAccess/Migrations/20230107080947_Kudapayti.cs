@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace kudapoyti.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class kudapayti : Migration
+    public partial class Kudapayti : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,7 +41,8 @@ namespace kudapoyti.DataAccess.Migrations
                     Rankedpoint = table.Column<long>(name: "Ranked_point", type: "bigint", nullable: false),
                     Locationlink = table.Column<string>(name: "Location_link", type: "text", nullable: false),
                     PlaceSiteUrl = table.Column<string>(type: "text", nullable: false),
-                    Region = table.Column<string>(type: "text", nullable: false)
+                    Region = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,7 +58,6 @@ namespace kudapoyti.DataAccess.Migrations
                     Comments = table.Column<string>(type: "text", nullable: false),
                     UserEmail = table.Column<string>(type: "text", nullable: false),
                     UserName = table.Column<string>(type: "text", nullable: false),
-                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     PlaceId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -79,8 +79,7 @@ namespace kudapoyti.DataAccess.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Photopath = table.Column<string>(name: "Photo_path", type: "text", nullable: false),
-                    PlaceId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    PlaceId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {

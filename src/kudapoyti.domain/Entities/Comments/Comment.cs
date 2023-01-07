@@ -15,8 +15,6 @@ public class Comment : Auditable
 
     public string UserName { get; set; } = String.Empty;
 
-    public DateTime Date { get; set; }
-
     public long PlaceId { get; set; }
     public virtual Places.Place Place { get; set; } = null!;
 }

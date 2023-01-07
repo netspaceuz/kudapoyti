@@ -23,4 +23,6 @@ public class AppDbContext : DbContext
     public virtual DbSet<Comment> Comments { get; set; }=default!;
     public virtual DbSet<Photo> Photos { get;  set; } = default!;
     public virtual DbSet<Place> Places { get; set; } = default!;
+
+
 }

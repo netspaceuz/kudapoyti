@@ -12,8 +12,8 @@ using kudapoyti.DataAccess.DbConstexts;
 namespace kudapoyti.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230106153340_kudapayti")]
-    partial class kudapayti
+    [Migration("20230107080947_Kudapayti")]
+    partial class Kudapayti
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,9 +69,6 @@ namespace kudapoyti.DataAccess.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<long>("PlaceId")
                         .HasColumnType("bigint");
 
@@ -98,9 +95,6 @@ namespace kudapoyti.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Photo_path")
                         .IsRequired()
                         .HasColumnType("text");
@@ -122,6 +116,9 @@ namespace kudapoyti.DataAccess.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
