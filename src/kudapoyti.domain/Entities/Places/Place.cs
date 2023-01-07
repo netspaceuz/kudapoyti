@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace kudapoyti.Domain.Entities.Places;
 
-public class Place:BaseEntity
+public class Place:Auditable
 {
     public string Title { get; set; }=string.Empty;
    

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace kudapoyti.Domain.Entities.Photos
 {
-    public class Photo:Auditable
+    public class Photo:BaseEntity
     {
         public string Photo_path { get; set; } = String.Empty;
         
