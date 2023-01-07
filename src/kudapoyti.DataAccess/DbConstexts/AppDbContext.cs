@@ -1,4 +1,5 @@
-﻿using kudapoyti.Domain.Entities.Admins;
+﻿using kudapoyti.DataAccess.Configurations;
+using kudapoyti.Domain.Entities.Admins;
 using kudapoyti.Domain.Entities.Comment;
 using kudapoyti.Domain.Entities.Photos;
 using kudapoyti.Domain.Entities.Places;
@@ -24,5 +25,9 @@ public class AppDbContext : DbContext
     public virtual DbSet<Photo> Photos { get;  set; } = default!;
     public virtual DbSet<Place> Places { get; set; } = default!;
 
-
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        _ = modelBuilder.ApplyConfiguration(new SuperAdmin());
+    }
 }
