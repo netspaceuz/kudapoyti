@@ -1,4 +1,6 @@
 ﻿using kudapoyti.DataAccess.DbConstexts;
+using kudapoyti.DataAccess.Interfaces;
+using kudapoyti.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -10,6 +12,6 @@ public static class DataAccessConfiguration
     {
         string connectionString = builder.Configuration.GetConnectionString("DataBaseConnection");
         _ = builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
-        //builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }

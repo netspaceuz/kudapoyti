@@ -1,4 +1,4 @@
-﻿using kudapoyti.Domain.Entities.Admin;
+﻿using kudapoyti.Domain.Entities.Admins;
 using kudapoyti.Domain.Entities.Comment;
 using kudapoyti.Domain.Entities.Photos;
 using kudapoyti.Domain.Entities.Places;
