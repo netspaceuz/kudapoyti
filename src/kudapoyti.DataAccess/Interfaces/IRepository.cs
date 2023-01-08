@@ -14,7 +14,7 @@ namespace kudapoyti.DataAccess.Interfaces
     {
         Task<T?> FindByIdAsync(long id);
 
-        public Task<T?> FirstOrDefaoult(Expression<Func<T, bool>> expression);
+        public Task<T?> FirstOrDefaoultAsync(Expression<Func<T, bool>> expression);
 
         public void CreateAsync(T entity);
 
