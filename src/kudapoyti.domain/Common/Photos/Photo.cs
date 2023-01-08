@@ -15,3 +15,4 @@ namespace kudapoyti.Domain.Entities.Photos
         public virtual Places.Place Place { get; set; } = null!;
     }
 }
+

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace kudapoyti.Service.Interfaces.Common
 {
     public interface IImageService
     {
+        public Task<string> SaveImageAsync(IFormFile file);
         public Task<bool> DeleteImageAsync(string imagePath);
     }
 }
