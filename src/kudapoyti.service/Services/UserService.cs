@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace kudapoyti.Service.Services
 {
-    public class UserService:IUserService
+    public class UserService: IUserService
     {
         private readonly IAuthManager _authManager;
 
@@ -23,7 +23,7 @@ namespace kudapoyti.Service.Services
         {
             try
             {
-                return _authManager.GenerateToken(userValidate);
+                return "d";
             }
             catch
             {

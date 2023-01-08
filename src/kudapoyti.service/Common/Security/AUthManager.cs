@@ -20,12 +20,13 @@ namespace kudapoyti.Service.Common.Security
         {
             _config = configuration.GetSection("Jwt");
         }
-        public string GenerateToken(UserValidateDto validUser)
+        public string GenerateToken(Domain.Entities.Admins.Admin admin)
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.Email, validUser.Email),
-                new Claim(ClaimTypes.Role, validUser.UserRole.ToString())
+                new Claim("Id", admin.Id.ToString()),
+                new Claim(ClaimTypes.Email, admin.Email),
+                new Claim(ClaimTypes.Role, admin.Role.ToString())
             };
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["SecretKey"]));
@@ -36,11 +37,6 @@ namespace kudapoyti.Service.Common.Security
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
-        }
-
-        public string GenerateToken(Domain.Entities.Admins.Admin admin)
-        {
-            throw new NotImplementedException();
         }
     }
 }

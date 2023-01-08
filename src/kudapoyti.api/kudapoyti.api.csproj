@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MiddleWares\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\kudapoyti.service\kudapoyti.Service.csproj" />
   </ItemGroup>
 

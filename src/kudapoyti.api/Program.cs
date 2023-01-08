@@ -1,22 +1,36 @@
 using kudapoyti.api.Configurations;
+using kudapoyti.api.MiddleWares;
 using kudapoyti.Service.Common.Security;
 using kudapoyti.Service.Interfaces;
+using kudapoyti.Service.Interfaces.Common;
 using kudapoyti.Service.Services;
+using kudapoyti.Service.Services.Common;
+using kudapoyti.Service.Services.KudaPaytiService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IAuthManager, AUthManager>();
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<IAuthManager, AUthManager>();
+
+builder.Services.AddScoped<IAdminAccountService, AdminAccountService>();
 builder.Services.AddScoped<IPlaceService, PlaceService>();
+builder.Services.ConfigureSwaggerAuthorize();
+
+//database
 builder.ConfigureDataAccess();
 
+//Middleware
 var app = builder.Build();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
