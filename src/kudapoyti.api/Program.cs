@@ -1,4 +1,7 @@
 using kudapoyti.api.Configurations;
+using kudapoyti.Service.Common.Security;
+using kudapoyti.Service.Interfaces;
+using kudapoyti.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IAuthManager, AUthManager>();
+builder.Services.AddScoped<IUserService,UserService>();
 builder.ConfigureDataAccess();
 
 var app = builder.Build();
