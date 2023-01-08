@@ -150,7 +150,7 @@ namespace kudapoyti.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Location_link")
+                    b.Property<string>("LocationLink")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -158,7 +158,13 @@ namespace kudapoyti.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("Ranked_point")
+                    b.Property<double>("Rank")
+                        .HasColumnType("double precision");
+
+                    b.Property<long>("RankedPoint")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("RankedUsersCount")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Region")
@@ -168,12 +174,6 @@ namespace kudapoyti.DataAccess.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<double>("rank")
-                        .HasColumnType("double precision");
-
-                    b.Property<long>("rankedUsersCount")
-                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
