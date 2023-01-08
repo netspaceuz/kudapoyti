@@ -37,5 +37,10 @@ namespace kudapoyti.Service.Common.Security
 
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
         }
+
+        public string GenerateToken(Domain.Entities.Admins.Admin admin)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
