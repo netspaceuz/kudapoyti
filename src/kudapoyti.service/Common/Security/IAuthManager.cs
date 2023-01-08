@@ -1,4 +1,5 @@
-﻿using kudapoyti.Service.Dtos.AccountDTOs;
+﻿using kudapoyti.Domain.Entities.Admins;
+using kudapoyti.Service.Dtos.AccountDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,8 @@ namespace kudapoyti.Service.Common.Security
     public interface IAuthManager
     {
         public string GenerateToken(UserValidateDto validUser);
+
+        public string GenerateToken(Admin admin);
+
     }
 }

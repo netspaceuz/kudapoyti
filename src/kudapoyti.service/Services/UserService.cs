@@ -27,7 +27,7 @@ namespace kudapoyti.Service.Services
             }
             catch
             {
-                throw new StatusCodeExeption(HttpStatusCode.BadRequest, "Something went wrong");
+                throw new StatusCodeException(HttpStatusCode.BadRequest, "Something went wrong");
             }
         }
     }

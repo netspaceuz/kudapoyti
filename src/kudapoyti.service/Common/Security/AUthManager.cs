@@ -1,5 +1,4 @@
-﻿using kudapoyti.Service.Common.Security;
-using kudapoyti.Service.Dtos.AccountDTOs;
+﻿using kudapoyti.Service.Dtos.AccountDTOs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Graph;
 using Microsoft.IdentityModel.Tokens;
@@ -11,7 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace kudapoyti.Service.Services
+namespace kudapoyti.Service.Common.Security
 {
     public class AUthManager : IAuthManager
     {
@@ -19,7 +18,7 @@ namespace kudapoyti.Service.Services
 
         public AUthManager(IConfiguration configuration)
         {
-                this._config = configuration.GetSection("Jwt");
+            _config = configuration.GetSection("Jwt");
         }
         public string GenerateToken(UserValidateDto validUser)
         {

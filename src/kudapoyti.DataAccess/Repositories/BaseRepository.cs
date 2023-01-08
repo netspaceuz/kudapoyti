@@ -37,7 +37,7 @@ namespace kudapoyti.DataAccess.Repositories
             return await _dbset.FindAsync(id);
         }
 
-        public async Task<T?> FirstOrDefaoult(Expression<Func<T, bool>> expression)
+        public async Task<T?> FirstOrDefaoultAsync(Expression<Func<T, bool>> expression)
         {
             return await _dbset.FirstOrDefaultAsync(expression);
         }
