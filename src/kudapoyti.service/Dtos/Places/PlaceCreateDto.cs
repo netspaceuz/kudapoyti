@@ -1,4 +1,5 @@
 ﻿using kudapoyti.Domain.Entities.Places;
+using Npgsql.Internal.TypeHandlers.DateTimeHandlers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,6 +23,9 @@ namespace kudapoyti.Service.Dtos.Places
         [Required(ErrorMessage =("Plase etner the link of the location."))]
         public string LocationLink { get; set; } = String.Empty;
 
+        [Required]
+        public string Region { get; set; } = string.Empty;
+
         public string PlaceSiteUrl { get; set; } = String.Empty;
         public static implicit operator Place (PlaceCreateDto dto)
         {
@@ -29,9 +33,9 @@ namespace kudapoyti.Service.Dtos.Places
             {
                 Title = dto.Title,
                 Description = dto.Description,
-                LocationLink = dto.LocationLink,
+                Location_link = dto.LocationLink,
                 PlaceSiteUrl = dto.PlaceSiteUrl,
-
+                Region = dto.Region,
             };
         }
         
