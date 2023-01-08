@@ -20,21 +20,21 @@ namespace kudapoyti.Service.Services.KudaPaytiService
     public class PlaceService : IPlaceService
     {
         private readonly IUnitOfWork _repository;
-        //private readonly IMapper _mapper;
+        private readonly IMapper _mapper;
         private readonly AppDbContext _appDbContext;
 
-        public PlaceService(IUnitOfWork unitOfWork,  AppDbContext appDbContext)
+        public PlaceService(IUnitOfWork unitOfWork,IMapper mapper,  AppDbContext appDbContext)
         {
             this._repository = unitOfWork;
-            //this._mapper = mapper;
+            this._mapper = mapper;
             this._appDbContext = appDbContext;
         }
         public async Task<bool> CreateAsync(PlaceCreateDto dto)
         {
             var entity = (Place)dto;
-            entity.rank = 0;
-            entity.rankedUsersCount= 0;
-            entity.Ranked_point = 0;
+            entity.Rank = 0;
+            entity.RankedUsersCount= 0;
+            entity.RankedPoint = 0;
             entity.CreatedAt = TimeHelper.GetCurrentServerTime();
             _appDbContext.Places.Add(entity);
             var result = await _appDbContext.SaveChangesAsync();
