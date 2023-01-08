@@ -23,7 +23,7 @@ public class SuperAdmin : IEntityTypeConfiguration<Admin>
             Description=" ",
             PasswordHash= "$2a$11$pUC4LQVORynSuk0xn/Wl9ujn3e8NVGIa9rs8WUliW4USW5FY/BhOG",
             Salt= "f1fd3ecc-32c8-430d-ae6d-288eb2753c43",
-            IsHead=true
+            
 
         });
     }

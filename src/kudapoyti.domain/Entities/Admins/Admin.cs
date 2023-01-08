@@ -11,7 +11,7 @@ namespace kudapoyti.Domain.Entities.Admins
 {
     public class Admin:BaseEntity
     {
-        [Required]
+        
         public string FullName { get; set; }=String.Empty;
 
         public string Email { get; set; }=String.Empty;
@@ -25,8 +25,6 @@ namespace kudapoyti.Domain.Entities.Admins
         public string PasswordHash { get; set; }=String.Empty;
         
         public string Salt { get; set; }=String.Empty;
-
-        public bool IsHead { get; set; }=false;
 
         public Role Role { get; set; }= Role.Admin;
     }

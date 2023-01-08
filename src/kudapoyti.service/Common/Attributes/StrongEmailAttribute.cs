@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace kudapoyti.Service.Common.Attributes
 {
-    internal class StrongEmailAttribute:ValidationAttribute
+    [AttributeUsage(AttributeTargets.Property)]
+    public class StrongEmailAttribute:ValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
