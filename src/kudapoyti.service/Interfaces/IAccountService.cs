@@ -9,7 +9,7 @@ namespace kudapoyti.Service.Interfaces
 {
     public interface IAccountService
     {
-        public Task<bool> RegisterAsync(AccountRegisterDto account);
-        public Task<string> LoginAsync(AccountLoginDto account);
+        public Task<bool> RegisterAsync(AdminAccountRegisterDto account);
+        public Task<string> LoginAsync(AdminAccountLoginDto account);
     }
 }

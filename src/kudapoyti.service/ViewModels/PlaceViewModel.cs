@@ -22,5 +22,6 @@ namespace kudapoyti.Service.ViewModels
 
         public string Region { get; set; } = String.Empty;
 
-    }
+    } 
 }
+  
