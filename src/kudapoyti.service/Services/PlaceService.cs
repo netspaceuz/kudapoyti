@@ -11,32 +11,46 @@ using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
+using kudapoyti.Service.Common.Helpers;
+using kudapoyti.Service.Common.Exceptions;
+using System.Net;
 
 namespace kudapoyti.Service.Services
 {
     public class PlaceService : IPlaceService
     {
         private readonly IUnitOfWork _repository;
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
         private readonly AppDbContext _appDbContext;
 
-        public PlaceService(IUnitOfWork unitOfWork, IMapper mapper, AppDbContext appDbContext)
+        public PlaceService(IUnitOfWork unitOfWork,  AppDbContext appDbContext)
         {
             this._repository = unitOfWork;
-            this._mapper = mapper;
+            //this._mapper = mapper;
             this._appDbContext = appDbContext;
         }
         public async Task<bool> CreateAsync(PlaceCreateDto dto)
         {
             var entity = (Place)dto;
+            entity.rank = 0;
+            entity.rankedUsersCount= 0;
+            entity.Ranked_point = 0;
+            entity.CreatedAt = TimeHelper.GetCurrentServerTime();
             _appDbContext.Places.Add(entity);
             var result = await _appDbContext.SaveChangesAsync();
             return result > 0;
         }
 
-        public Task<bool> DeleteAsync(long id)
+        public async Task<bool> DeleteAsync(long id)
         {
-            throw new NotImplementedException();
+            var entity = await _appDbContext.Places.FindAsync(id);
+            if (entity is not null)
+            {
+                _appDbContext.Places.Remove(entity);
+                var result = await _appDbContext.SaveChangesAsync();
+                return result > 0;
+            }
+            else throw new StatusCodeException(HttpStatusCode.NotFound, "Car is not found.");
         }
 
         public Task<IEnumerable<Place>> GetAllAsync()

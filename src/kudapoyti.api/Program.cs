@@ -13,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAuthManager, AUthManager>();
 builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<IPlaceService, PlaceService>();
 builder.ConfigureDataAccess();
 
 var app = builder.Build();
