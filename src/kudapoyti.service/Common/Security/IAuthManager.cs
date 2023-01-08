@@ -1,0 +1,14 @@
+﻿using kudapoyti.Service.Dtos.AccountDTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace kudapoyti.Service.Common.Security
+{
+    public interface IAuthManager
+    {
+        public string GenerateToken(UserValidateDto validUser);
+    }
+}
