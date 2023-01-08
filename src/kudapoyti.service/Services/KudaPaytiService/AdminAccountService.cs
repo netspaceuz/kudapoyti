@@ -34,7 +34,7 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             var hasherResult = PasswordHasher.Verify(loginDto.Password, admin.Salt, admin.PasswordHash);
             if (hasherResult)
             {
-                return _auth.GenerateToken(validUser);
+                return _auth.GenerateToken(admin);
             }
             else throw new StatusCodeException(HttpStatusCode.BadRequest, "Password is wrong!");
         }

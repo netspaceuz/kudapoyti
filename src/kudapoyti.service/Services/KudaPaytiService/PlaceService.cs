@@ -15,7 +15,7 @@ using kudapoyti.Service.Common.Helpers;
 using kudapoyti.Service.Common.Exceptions;
 using System.Net;
 
-namespace kudapoyti.Service.Services
+namespace kudapoyti.Service.Services.KudaPaytiService
 {
     public class PlaceService : IPlaceService
     {
