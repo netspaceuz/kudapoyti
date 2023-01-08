@@ -1,4 +1,6 @@
-﻿using System;
+﻿using kudapoyti.Service.Common.Utils;
+using kudapoyti.Service.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,10 @@ namespace kudapoyti.Service.Interfaces
 {
     public interface IAdminService
     {
-
+        public Task<IEnumerable<AdminViewModel>> GetAllAysnc(PaginationParams @params);
+        public Task<AdminViewModel> GetAysnc(long id);
+        public Task<bool> CreateAysnc( );
+        public Task<bool> UpdateAysnc();
+        public Task<bool> DeleteAysnc(long id);
     }
 }

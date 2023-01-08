@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Common\Attributes\" />
+    <Folder Include="Dtos\Common\" />
   </ItemGroup>
 
   <ItemGroup>
