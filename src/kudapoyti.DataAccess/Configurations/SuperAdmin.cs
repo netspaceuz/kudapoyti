@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace kudapoyti.DataAccess.Configurations;
 
-public class SuperAdmin : IEntityTypeConfiguration<Admin>
+public class SuperAdmin : IEntityTypeConfiguration<Admin1>
 {
-    public void Configure(EntityTypeBuilder<Admin> builder)
+    public void Configure(EntityTypeBuilder<Admin1> builder)
     {
-        builder.HasData(new Admin()
+        builder.HasData(new Admin1()
         {
             Id=1,
             FullName="Kudapayti",

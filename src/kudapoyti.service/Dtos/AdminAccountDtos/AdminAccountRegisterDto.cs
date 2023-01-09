@@ -29,9 +29,9 @@ namespace kudapoyti.Service.Dtos.Accounts
         [Required, MinLength(8), StrongPasswordAttribute] 
         public string Password { get; set; } = string.Empty;
 
-        public static implicit operator Admin(AdminAccountRegisterDto accountRegisterDto)
+        public static implicit operator Admin1(AdminAccountRegisterDto accountRegisterDto)
         {
-            return new Admin()
+            return new Admin1()
             {
                 FullName = accountRegisterDto.FullName,
                 Email = accountRegisterDto.Email,

@@ -20,7 +20,7 @@ namespace kudapoyti.Service.Common.Security
         {
             _config = configuration.GetSection("Jwt");
         }
-        public string GenerateToken(Domain.Entities.Admins.Admin admin)
+        public string GenerateToken(Domain.Entities.Admins.Admin1 admin)
         {
             var claims = new[]
             {
