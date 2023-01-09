@@ -12,7 +12,6 @@ namespace kudapoyti.Service.Interfaces
     {
         public Task<IEnumerable<AdminViewModel>> GetAllAysnc(PaginationParams @params);
         public Task<AdminViewModel> GetAysnc(long id);
-        public Task<bool> CreateAysnc( );
         public Task<bool> UpdateAysnc();
         public Task<bool> DeleteAysnc(long id);
     }

@@ -1,5 +1,5 @@
 ﻿using kudapoyti.Domain.Entities.Places;
-using kudapoyti.Service.Dtos.Places;
+using kudapoyti.Service.Dtos;
 using kudapoyti.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
