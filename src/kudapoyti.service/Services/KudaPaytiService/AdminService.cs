@@ -1,8 +1,11 @@
-﻿using kudapoyti.DataAccess.Interfaces;
+﻿using AutoMapper;
+using kudapoyti.DataAccess.DbConstexts;
+using kudapoyti.DataAccess.Interfaces;
 using kudapoyti.Domain.Entities.Admins;
 using kudapoyti.Service.Common.Exceptions;
 using kudapoyti.Service.Common.Security;
 using kudapoyti.Service.Common.Utils;
+using kudapoyti.Service.Dtos;
 using kudapoyti.Service.Dtos.Accounts;
 using kudapoyti.Service.Interfaces;
 using kudapoyti.Service.Interfaces.Common;
@@ -19,32 +22,51 @@ namespace kudapoyti.Service.Services.KudaPaytiService
     public class AdminService : IAdminService
     {
         private readonly IUnitOfWork _work;
-        private readonly IAuthManager _auth;
         private readonly IImageService _image;
-
-        public AdminService(IUnitOfWork repository, IAuthManager authManager, IImageService image)
+        private readonly IPaginationService _pager;
+        private readonly IMapper _mapper;
+        private readonly AppDbContext appDb;
+        public AdminService(IUnitOfWork repository, AppDbContext appDb, IMapper mapper, IPaginationService pagination, IImageService image)
         {
-            _work = repository;
-            _auth = authManager;
-            _image = image;
+            this._work = repository;
+            this._mapper = mapper;
+            this.appDb = appDb;
+            this._image=image;
+            this._pager=pagination;
+
         }
 
-        public Task<bool> DeleteAysnc(long id)
+        public async Task<bool> DeleteAysnc(long id)
         {
-            throw new NotImplementedException();
+           var delete=await _work.Admins.FindByIdAsync(id);
+            if (delete is not null)
+            {
+                _work.Admins.DeleteAsync(id);
+                var result = await _work.SaveChangesAsync();
+                return result > 0;
+            }
+            else throw new StatusCodeException(HttpStatusCode.NotFound, "Admin not found");
         }
 
-        public Task<IEnumerable<AdminViewModel>> GetAllAysnc(PaginationParams @params)
+        public async Task<IEnumerable<Admin1>> GetAllAysnc(PaginationParams @params)
         {
-            throw new NotImplementedException();
+            var query = _work.Admins.GetAll().OrderBy(x => x.Id);
+            var result = await _pager.ToPagedAsync(query, @params.PageNumber, @params.PageSize);
+            return result;
         }
 
-        public Task<AdminViewModel> GetAysnc(long id)
+        public async Task<Admin1> GetAysnc(long id)
         {
-            throw new NotImplementedException();
+            var get = await _work.Admins.FindByIdAsync(id);
+            if (get is not null)
+            {
+                var re= _mapper.Map<Admin1>(get);
+                return re;
+            } 
+            else throw new StatusCodeException(HttpStatusCode.NotFound, "Admin not faund");
         }
 
-        public async Task<bool> RegisterAsync(AdminAccountRegisterDto registerDto)
+        public async Task<bool> RegisterAsync(AdminCreateDto registerDto)
         {
             var emailcheck = await _work.Admins.FirstOrDefaoultAsync(x => x.Email == registerDto.Email);
             if (emailcheck is not null)
@@ -59,9 +81,21 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             return databaseResult > 0;
         }
 
-        public Task<bool> UpdateAysnc(long id, AdminAccountRegisterDto dto)
+        public async Task<bool> UpdateAysnc(long id, UpdateCreateDto dto)
         {
-            throw new NotImplementedException();
+            var update = await appDb.Admins.FindAsync(id);
+            appDb.Entry<Admin1>(update!).State=Microsoft.EntityFrameworkCore.EntityState.Detached;
+            if (dto is not null)
+            {
+                var res = _mapper.Map<Admin1>(dto);
+                res.Id = id;
+                appDb.Admins.Update(res);
+                var result = await appDb.SaveChangesAsync();
+                return result > 0;
+            }
+            else throw new StatusCodeException(HttpStatusCode.NotFound, "Admin not faund");
         }
+
+   
     }
 }
