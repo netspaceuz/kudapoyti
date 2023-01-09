@@ -3,6 +3,7 @@ using kudapoyti.api.MiddleWares;
 using kudapoyti.Service.Common.Security;
 using kudapoyti.Service.Interfaces;
 using kudapoyti.Service.Interfaces.Common;
+using kudapoyti.Service.Services.Common;
 using kudapoyti.Service.Services;
 using kudapoyti.Service.Services.Common;
 using kudapoyti.Service.Services.KudaPaytiService;
@@ -21,7 +22,9 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IAuthManager, AUthManager>();
 
 builder.Services.AddScoped<IAdminAccountService, AdminAccountService>();
+builder.Services.AddScoped<IPaginationService, PaginatonService>();
 builder.Services.AddScoped<IPlaceService, PlaceService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.ConfigureSwaggerAuthorize();
 
 //Mapper
