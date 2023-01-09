@@ -24,6 +24,10 @@ builder.Services.AddScoped<IAdminAccountService, AdminAccountService>();
 builder.Services.AddScoped<IPlaceService, PlaceService>();
 builder.Services.ConfigureSwaggerAuthorize();
 
+//Mapper
+builder.Services.AddAutoMapper(typeof(MapperConfiguration));
+
+
 //database
 builder.ConfigureDataAccess();
 
