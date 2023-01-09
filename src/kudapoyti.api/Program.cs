@@ -25,6 +25,7 @@ builder.Services.AddScoped<IAdminAccountService, AdminAccountService>();
 builder.Services.AddScoped<IPaginationService, PaginatonService>();
 builder.Services.AddScoped<IPlaceService, PlaceService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+
 builder.Services.ConfigureSwaggerAuthorize();
 
 //Mapper

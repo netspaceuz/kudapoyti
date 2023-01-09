@@ -1,4 +1,5 @@
 ﻿using kudapoyti.Service.Common.Utils;
+using kudapoyti.Service.Dtos;
 using kudapoyti.Service.Dtos.Accounts;
 using kudapoyti.Service.Interfaces;
 using kudapoyti.Service.Interfaces.Common;
@@ -14,7 +15,7 @@ namespace kudapoyti.api.Controllers
     {
         private readonly IAdminService _admin;
         private readonly IPaginationService _pager;
-        private readonly int _pageSize = 20;
+        private readonly int _pageSize = 6;
         public AdminController(IAdminService admin, IPaginationService paginationService)
         {
             _admin = admin;
@@ -25,7 +26,7 @@ namespace kudapoyti.api.Controllers
             => Ok(await _admin.GetAllAysnc(new PaginationParams(page, _pageSize)));
 
         [HttpPost("RegistrAdmin")]
-        public async Task<IActionResult> RegisterAsync([FromForm] AdminAccountRegisterDto registerDto)
+        public async Task<IActionResult> RegisterAsync([FromForm] AdminCreateDto registerDto)
             => Ok(await _admin.RegisterAsync(registerDto));
 
         [HttpGet("{id}")]
@@ -37,7 +38,7 @@ namespace kudapoyti.api.Controllers
             =>Ok(await _admin.DeleteAysnc(id));
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync(long id, [FromForm] AdminAccountRegisterDto dto)
+        public async Task<IActionResult> UpdateAsync(long id, [FromForm] UpdateCreateDto dto)
             => Ok(await _admin.UpdateAysnc(id, dto));
     }
 }
