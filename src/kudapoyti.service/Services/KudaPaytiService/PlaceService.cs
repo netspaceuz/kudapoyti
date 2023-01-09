@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using kudapoyti.DataAccess.DbConstexts;
 using kudapoyti.DataAccess.Interfaces;
-using kudapoyti.Service.Dtos.Places;
 using kudapoyti.Service.Interfaces;
 using kudapoyti.Service.ViewModels;
 using kudapoyti.Domain.Entities.Places;
@@ -14,6 +13,7 @@ using System.Threading.Tasks;
 using kudapoyti.Service.Common.Helpers;
 using kudapoyti.Service.Common.Exceptions;
 using System.Net;
+using kudapoyti.Service.Dtos;
 
 namespace kudapoyti.Service.Services.KudaPaytiService
 {

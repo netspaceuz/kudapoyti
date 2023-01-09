@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using kudapoyti.Service.Dtos.Places;
+using kudapoyti.Service.Dtos;
 using Microsoft.Graph;
 
 namespace kudapoyti.api.Configurations;
