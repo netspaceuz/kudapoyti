@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace kudapoyti.Service.Dtos.Accounts
-{
+{   
     public class AdminAccountRegisterDto
     {
         [Required, MaxLength(50), MinLength(5)]

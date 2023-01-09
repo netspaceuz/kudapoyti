@@ -1,4 +1,5 @@
 ﻿using kudapoyti.Service.Common.Utils;
+using kudapoyti.Service.Dtos.Accounts;
 using kudapoyti.Service.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,8 @@ namespace kudapoyti.Service.Interfaces
     {
         public Task<IEnumerable<AdminViewModel>> GetAllAysnc(PaginationParams @params);
         public Task<AdminViewModel> GetAysnc(long id);
-        public Task<bool> UpdateAysnc();
+        public Task<bool> RegisterAsync(AdminAccountRegisterDto account);
+        public Task<bool> UpdateAysnc(long id,AdminAccountRegisterDto dto);
         public Task<bool> DeleteAysnc(long id);
     }
 }

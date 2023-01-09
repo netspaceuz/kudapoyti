@@ -15,10 +15,6 @@ namespace kudapoyti.api.Controllers
             _admin=admin;
         }
 
-        [HttpPost("Register")]
-        public async Task<IActionResult> RegisterAsync([FromForm] AdminAccountRegisterDto registerDto )
-            => Ok(await _admin.RegisterAsync(registerDto));
-
         [HttpPost("Login")]
         public async Task<IActionResult> LoginAsync([FromForm] AdminAccountLoginDto loginDto)
             => Ok(await _admin.LoginAsync(loginDto));
