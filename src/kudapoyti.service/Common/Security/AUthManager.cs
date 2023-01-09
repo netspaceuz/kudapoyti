@@ -28,7 +28,20 @@ namespace kudapoyti.Service.Common.Security
                 new Claim(ClaimTypes.Email, admin.Email),
                 new Claim(ClaimTypes.Role, admin.Role.ToString())
             };
-
+            return CommonDoing(claims);
+        }
+        public string GenerateToken(UserValidateDto user)
+        {
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name,user.Name),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.UserRole.ToString())
+            };
+            return CommonDoing(claims);
+        }
+        private string CommonDoing(Claim[] claims)
+        {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["SecretKey"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 

@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace kudapoyti.Service.Interfaces
+namespace kudapoyti.Service.Interfaces.CommentServices
 {
     public interface IUserService
     {
-        public Task<string> LoginAsync(UserValidateDto userValidate);
+        public Task LoginAsync(UserValidateDto userValidate);
+        public Task<(bool, string)> VerifyCodeAsync(string code);
     }
 }
