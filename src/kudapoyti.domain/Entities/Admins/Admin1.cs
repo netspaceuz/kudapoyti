@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace kudapoyti.Domain.Entities.Admins
 {
-    public class Admin:BaseEntity
+    public class Admin1:BaseEntity
     {
-        
         public string FullName { get; set; }=String.Empty;
 
         public string Email { get; set; }=String.Empty;

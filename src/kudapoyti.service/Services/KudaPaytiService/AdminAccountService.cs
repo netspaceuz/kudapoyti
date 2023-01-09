@@ -1,9 +1,12 @@
 ﻿using kudapoyti.DataAccess.Interfaces;
+using kudapoyti.Domain.Entities.Admins;
 using kudapoyti.Service.Common.Exceptions;
+using kudapoyti.Service.Common.Helpers;
 using kudapoyti.Service.Common.Security;
 using kudapoyti.Service.Dtos.Accounts;
 using kudapoyti.Service.Interfaces;
 using kudapoyti.Service.Interfaces.Common;
+using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,9 +42,19 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             else throw new StatusCodeException(HttpStatusCode.BadRequest, "Password is wrong!");
         }
 
-        public Task<bool> RegisterAsync(AdminAccountRegisterDto account)
+        public async Task<bool> RegisterAsync(AdminAccountRegisterDto registerDto)
         {
-            throw new NotImplementedException();
+            var emailcheck = await _work.Admins.FirstOrDefaoultAsync(x => x.Email == registerDto.Email);
+            if (emailcheck is not null)
+                throw new StatusCodeException(HttpStatusCode.Conflict, "Email alredy exist");
+
+            var hasherResult = PasswordHasher.Hash(registerDto.Password);
+            var admin = (Admin1)registerDto;
+            admin.PasswordHash = hasherResult.passwordHash;
+            admin.Salt = hasherResult.salt;
+            _work.Admins.CreateAsync(admin);
+            var databaseResult = await _work.SaveChangesAsync();
+            return databaseResult > 0;
         }
     }
 }

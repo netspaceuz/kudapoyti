@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace kudapoyti.DataAccess.Interfaces.Admins
 {
-    public interface IAdminRepository: IGenericRepository<Admin>
+    public interface IAdminRepository: IGenericRepository<Admin1>
     {
     }
 }

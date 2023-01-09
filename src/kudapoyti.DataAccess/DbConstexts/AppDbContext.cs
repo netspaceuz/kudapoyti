@@ -20,7 +20,7 @@ public class AppDbContext : DbContext
 
     }
 
-    public virtual DbSet<Admin> Admins { get; set; } = default!;
+    public virtual DbSet<Admin1> Admins { get; set; } = default!;
     public virtual DbSet<Comment> Comments { get; set; }=default!;
     public virtual DbSet<Photo> Photos { get;  set; } = default!;
     public virtual DbSet<Place> Places { get; set; } = default!;
