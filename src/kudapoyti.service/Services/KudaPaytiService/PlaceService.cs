@@ -70,11 +70,6 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             return data;
         }
 
-        public Task<IEnumerable<Place>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<PlaceViewModel> GetAsync(long id)
         { 
         //{
