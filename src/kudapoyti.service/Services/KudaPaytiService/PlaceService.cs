@@ -71,6 +71,11 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             return data;
         }
 
+        public Task<IEnumerable<Place>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<PlaceViewModel> GetAsync(long id)
         {
             var mapper = new Mapper(new MapperConfiguration
@@ -93,33 +98,20 @@ namespace kudapoyti.Service.Services.KudaPaytiService
                 .Select(x => _mapper.Map<PlaceViewModel>(x)).ToListAsync();
             return places;
         }
-        public async Task<bool> UpdateAsync(long id, PlaceCreateDto updateDto)
+        public async Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto)
         {
             var place = await _repository.Places.FindByIdAsync(id);
             if (place is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
-
-            var updatePlace = _mapper.Map<Domain.Entities.Places.Place>(updateDto);
-
+            var updatePlace = _mapper.Map<Place>(updateDto);
             if (updateDto.Image is not null)
             {
                 await _imageService.DeleteImageAsync(place.ImageUrl!);
                 updatePlace.ImageUrl = await _imageService.SaveImageAsync(updateDto.Image);
             }
             updatePlace.Id = id;
-
             _repository.Places.UpdateAsync(id, updatePlace);
             var result = await _repository.SaveChangesAsync();
             return result > 0;
-        }
-
-        public Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<PlaceViewModel> IPlaceService.GetAsync(long id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

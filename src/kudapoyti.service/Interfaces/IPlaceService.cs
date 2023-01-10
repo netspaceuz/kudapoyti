@@ -12,14 +12,11 @@ namespace kudapoyti.Service.Interfaces
 {
     public interface IPlaceService
     {
-
         public Task<IEnumerable<Place>> GetAllAsync(PaginationParams @paginationParams);
-        public Task<PlaceViewModel> GetAsync(long id);
         public Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto);
         public Task<IEnumerable<Place>> GetAllAsync();
         public Task<PlaceViewModel> GetAsync(long id);
         public Task<IEnumerable<PlaceViewModel>> GetByKeyword(string keyword);
-        public Task<bool> UpdateAsync(long id, PlaceCreateDto updateDto);
         public Task<bool> DeleteAsync(long id);
         public Task<bool> CreateAsync(PlaceCreateDto createDto);
     }
