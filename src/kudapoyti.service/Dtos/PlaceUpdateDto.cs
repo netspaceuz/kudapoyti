@@ -40,7 +40,7 @@ public class PlaceUpdateDto
             Location_link = dto.LocationLink,
             PlaceSiteUrl = dto.PlaceSiteUrl,
             Region = dto.Region,
-            ImageUrl = dto.Image.ToString()
+            ImageUrl = dto.Image!.ToString()
         };
     }
 }
