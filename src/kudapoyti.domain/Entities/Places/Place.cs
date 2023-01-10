@@ -12,6 +12,7 @@ public class Place:Auditable
     public string Title { get; set; }=string.Empty;
    
     public string Description { get; set; }=string.Empty;
+    public string? ImageUrl { get; set; }
 
     public double rank { get; set; }
 

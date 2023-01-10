@@ -14,58 +14,90 @@ using kudapoyti.Service.Common.Helpers;
 using kudapoyti.Service.Common.Exceptions;
 using System.Net;
 using kudapoyti.Service.Dtos;
+using kudapoyti.Service.Interfaces.Common;
+using kudapoyti.Service.Common.Utils;
+using kudapoyti.Service.Services.Common;
+using kudapoyti.DataAccess.Repositories;
 
 namespace kudapoyti.Service.Services.KudaPaytiService
 {
     public class PlaceService : IPlaceService
     {
+        private readonly IPaginationService _paginator;
         private readonly IUnitOfWork _repository;
         private readonly IMapper _mapper;
         private readonly AppDbContext _appDbContext;
+        private readonly IImageService _imageService;
 
-        public PlaceService(IUnitOfWork unitOfWork,IMapper mapper,  AppDbContext appDbContext)
+        public PlaceService(IUnitOfWork unitOfWork,IMapper mapper,  AppDbContext appDbContext, IImageService imageService, IPaginationService paginatorService)
         {
+            this._paginator = paginatorService;
             this._repository = unitOfWork;
             this._mapper = mapper;
             this._appDbContext = appDbContext;
+            this._imageService = imageService;
         }
         public async Task<bool> CreateAsync(PlaceCreateDto dto)
         {
-            var entity = (Place)dto;
+            var entity = (Domain.Entities.Places.Place)dto;
             entity.rank = 0;
             entity.rankedUsersCount= 0;
             entity.Ranked_point = 0;
+            entity.ImageUrl = await _imageService.SaveImageAsync(dto.Image!);
             entity.CreatedAt = TimeHelper.GetCurrentServerTime();
-            _appDbContext.Places.Add(entity);
-            var result = await _appDbContext.SaveChangesAsync();
+            //_appDbContext.Places.Add(entity);
+            _repository.Places.CreateAsync(entity);
+            var result = await _repository.SaveChangesAsync();
             return result > 0;
         }
 
         public async Task<bool> DeleteAsync(long id)
         {
-            var entity = await _appDbContext.Places.FindAsync(id);
+            var entity = await _repository.Places.FindByIdAsync(id);
             if (entity is not null)
             {
-                _appDbContext.Places.Remove(entity);
-                var result = await _appDbContext.SaveChangesAsync();
+                _repository.Places.DeleteAsync(id);
+                var result = await _repository.SaveChangesAsync();
                 return result > 0;
             }
             else throw new StatusCodeException(HttpStatusCode.NotFound, "Car is not found.");
         }
 
-        public Task<IEnumerable<Place>> GetAllAsync()
+        public async Task<IEnumerable<Place>> GetAllAsync(PaginationParams @paginationParams)
         {
-            throw new NotImplementedException();
+            var query = _repository.Places.GetAll().OrderBy(x=>x.rank);
+            var data = await _paginator.ToPagedAsync(query, @paginationParams.PageNumber, @paginationParams.PageSize);
+            return data;
         }
 
-        public Task<PlaceViewModel> GetAsync(long id)
+        public async Task<Place> GetAsync(long id)
         {
-            throw new NotImplementedException();
+            var place = await _repository.Places.FindByIdAsync(id);
+            if (place is not null)
+            {
+                var res = _mapper.Map<Place>(place);
+                return res;
+            }
+            else throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
         }
 
-        public Task<bool> UpdateAsync(long id, PlaceCreateDto updateDto)
+        public async Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto)
         {
-            throw new NotImplementedException();
+            var place = await _repository.Places.FindByIdAsync(id);
+            if (place is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
+
+            var updatePlace = _mapper.Map<Domain.Entities.Places.Place>(updateDto);
+
+            if (updateDto.Image is not null)
+            {
+                await _imageService.DeleteImageAsync(place.ImageUrl!);
+                updatePlace.ImageUrl = await _imageService.SaveImageAsync(updateDto.Image);
+            }
+            updatePlace.Id = id;
+
+            _repository.Places.UpdateAsync(id, updatePlace);
+            var result = await _repository.SaveChangesAsync();
+            return result > 0;
         }
 
     }

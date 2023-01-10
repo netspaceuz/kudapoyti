@@ -1,4 +1,5 @@
 ﻿using kudapoyti.Domain.Entities.Places;
+using kudapoyti.Service.Common.Utils;
 using kudapoyti.Service.Dtos;
 using kudapoyti.Service.ViewModels;
 
@@ -13,9 +14,9 @@ namespace kudapoyti.Service.Interfaces
     public interface IPlaceService
     {
 
-        public Task<IEnumerable<Place>> GetAllAsync();
-        public Task<PlaceViewModel> GetAsync(long id);
-        public Task<bool> UpdateAsync(long id, PlaceCreateDto updateDto);
+        public Task<IEnumerable<Place>> GetAllAsync(PaginationParams @paginationParams);
+        public Task<Place> GetAsync(long id);
+        public Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto);
         public Task<bool> DeleteAsync(long id);
         public Task<bool> CreateAsync(PlaceCreateDto createDto);
     }

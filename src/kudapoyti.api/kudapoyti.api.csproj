@@ -20,4 +20,8 @@
     <ProjectReference Include="..\kudapoyti.service\kudapoyti.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,5 @@
 ﻿using kudapoyti.Domain.Entities.Places;
+using Microsoft.AspNetCore.Http;
 using Npgsql.Internal.TypeHandlers.DateTimeHandlers;
 using System;
 using System.Collections.Generic;
@@ -18,15 +19,21 @@ namespace kudapoyti.Service.Dtos
         public string Title { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Please enter a description that contains minimum 10 and maximum 100 characters.")]
+        [MinLength(10)]
+        [MaxLength(100)]
         public string Description { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Plase etner the link of the location.")]
         public string LocationLink { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage ="Please select a region.")]
         public string Region { get; set; } = string.Empty;
 
         public string PlaceSiteUrl { get; set; } = string.Empty;
+
+        [Required(ErrorMessage ="Plase upload a picture of the place.")]
+        public IFormFile? Image { get; set; } 
+
         public static implicit operator Place(PlaceCreateDto dto)
         {
             return new Place()
@@ -36,6 +43,7 @@ namespace kudapoyti.Service.Dtos
                 Location_link = dto.LocationLink,
                 PlaceSiteUrl = dto.PlaceSiteUrl,
                 Region = dto.Region,
+                ImageUrl = dto.Image!.ToString()
             };
         }
 
