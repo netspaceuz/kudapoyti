@@ -25,5 +25,4 @@ public class Place:Auditable
     public string PlaceSiteUrl { get; set; }=String.Empty;
 
     public string Region { get; set; } = String.Empty;
-
 }

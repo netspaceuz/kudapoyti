@@ -54,7 +54,6 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             var result = await _pager.ToPagedAsync(query, @params.PageNumber, @params.PageSize);
             return result;
         }
-
         public async Task<Admin1> GetAysnc(long id)
         {
             var get = await _work.Admins.FindByIdAsync(id);
@@ -65,7 +64,6 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             } 
             else throw new StatusCodeException(HttpStatusCode.NotFound, "Admin not faund");
         }
-
         public async Task<bool> RegisterAsync(AdminCreateDto registerDto)
         {
             var emailcheck = await _work.Admins.FirstOrDefaoultAsync(x => x.Email == registerDto.Email);
@@ -95,7 +93,5 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             }
             else throw new StatusCodeException(HttpStatusCode.NotFound, "Admin not faund");
         }
-
-   
     }
 }

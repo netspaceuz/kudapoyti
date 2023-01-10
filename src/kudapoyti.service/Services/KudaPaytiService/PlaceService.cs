@@ -18,6 +18,7 @@ using kudapoyti.Service.Interfaces.Common;
 using kudapoyti.Service.Common.Utils;
 using kudapoyti.Service.Services.Common;
 using kudapoyti.DataAccess.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace kudapoyti.Service.Services.KudaPaytiService
 {
@@ -83,8 +84,16 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             }
             else throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
         }
-
-        public async Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto)
+        public async Task<IEnumerable<PlaceViewModel>> GetByKeyword(string keyword)
+        {
+            IEnumerable<PlaceViewModel> places = await _appDbContext.Places
+                .Where(x=>x.Title.ToLower().Contains(keyword.ToLower())
+                || x.Description.ToLower().Contains(keyword.ToLower())
+                || x.Region.ToLower().Contains(keyword.ToLower()))
+                .Select(x => _mapper.Map<PlaceViewModel>(x)).ToListAsync();
+            return places;
+        }
+        public async Task<bool> UpdateAsync(long id, PlaceCreateDto updateDto)
         {
             var place = await _repository.Places.FindByIdAsync(id);
             if (place is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
@@ -103,5 +112,14 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             return result > 0;
         }
 
+        public Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<PlaceViewModel> IPlaceService.GetAsync(long id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
