@@ -8,6 +8,6 @@ namespace kudapoyti.Domain.Enums
 {
     public enum Role
     {
-       Admin=0,
+       Admin=0
     }
 }
