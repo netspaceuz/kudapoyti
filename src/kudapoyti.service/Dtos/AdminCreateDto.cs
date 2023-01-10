@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace kudapoyti.Service.Dtos
+namespace kudapoyti.Service.Dtos     
 {
     public class AdminCreateDto
     {

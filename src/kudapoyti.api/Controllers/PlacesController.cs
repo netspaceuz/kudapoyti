@@ -39,7 +39,7 @@ namespace kudapoyti.api.Controllers
             => Ok(await _placeService.DeleteAsync(id));
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateByIdAsync(long id, [FromBody] PlaceUpdateDto obj) 
+        public async Task<IActionResult> UpdateByIdAsync(long id, [FromForm] PlaceUpdateDto obj) 
             => Ok(await _placeService.UpdateAsync(id, obj));
     }
 }

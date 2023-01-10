@@ -1,6 +1,7 @@
 ﻿using kudapoyti.DataAccess.DbConstexts;
 using kudapoyti.DataAccess.Interfaces.Places;
 using kudapoyti.Domain.Entities.Places;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
