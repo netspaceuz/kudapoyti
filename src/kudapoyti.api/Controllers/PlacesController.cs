@@ -1,6 +1,9 @@
-﻿using kudapoyti.Domain.Entities.Places;
+﻿using kudapoyti.Domain.Constants;
+using kudapoyti.Domain.Entities.Places;
+using kudapoyti.Service.Common.Utils;
 using kudapoyti.Service.Dtos;
 using kudapoyti.Service.Interfaces;
+using kudapoyti.Service.Interfaces.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,14 +15,16 @@ namespace kudapoyti.api.Controllers
     public class PlacesController : ControllerBase
     {
         private readonly IPlaceService _placeService;
+        private readonly IPaginationService _pager;
+        private readonly int _pageSize = PageSize.PAGESIZE;
 
         public PlacesController(IPlaceService placeService)
         {
             this._placeService = placeService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync() 
-            => Ok(await _placeService.GetAllAsync());
+        public async Task<IActionResult> GetAllAsync(int page) 
+            => Ok(await _placeService.GetAllAsync(new PaginationParams(page, _pageSize)));
 
         [HttpGet("{id}"), AllowAnonymous]
         public async Task<IActionResult> GetByIdAsync(long id) 
@@ -34,7 +39,7 @@ namespace kudapoyti.api.Controllers
             => Ok(await _placeService.DeleteAsync(id));
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateByIdAsync(long id, [FromBody] PlaceCreateDto obj) 
+        public async Task<IActionResult> UpdateByIdAsync(long id, [FromBody] PlaceUpdateDto obj) 
             => Ok(await _placeService.UpdateAsync(id, obj));
     }
 }

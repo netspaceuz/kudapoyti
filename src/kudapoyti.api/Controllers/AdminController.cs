@@ -1,4 +1,5 @@
-﻿using kudapoyti.Service.Common.Utils;
+﻿using kudapoyti.Domain.Constants;
+using kudapoyti.Service.Common.Utils;
 using kudapoyti.Service.Dtos;
 using kudapoyti.Service.Dtos.Accounts;
 using kudapoyti.Service.Interfaces;
@@ -15,7 +16,7 @@ namespace kudapoyti.api.Controllers
     {
         private readonly IAdminService _admin;
         private readonly IPaginationService _pager;
-        private readonly int _pageSize = 6;
+        private readonly int _pageSize = PageSize.PAGESIZE;
         public AdminController(IAdminService admin, IPaginationService paginationService)
         {
             _admin = admin;
