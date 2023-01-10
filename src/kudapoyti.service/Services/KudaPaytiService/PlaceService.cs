@@ -40,13 +40,12 @@ namespace kudapoyti.Service.Services.KudaPaytiService
         }
         public async Task<bool> CreateAsync(PlaceCreateDto dto)
         {
-            var entity =_mapper.Map<Place>(dto);
+            var entity = (Place)dto;
             entity.rank = 0;
             entity.rankedUsersCount = 0;
             entity.Ranked_point = 0;
             entity.ImageUrl = await _imageService.SaveImageAsync(dto.Image!);
             entity.CreatedAt = TimeHelper.GetCurrentServerTime();
-            //_appDbContext.Places.Add(entity);
             _repository.Places.CreateAsync(entity);
             var result = await _repository.SaveChangesAsync();
             return result > 0;
@@ -77,13 +76,14 @@ namespace kudapoyti.Service.Services.KudaPaytiService
         }
 
         public async Task<PlaceViewModel> GetAsync(long id)
-        {
-            var mapper = new Mapper(new MapperConfiguration
-                (cfg => cfg.CreateMap<Place, PlaceViewModel>().ReverseMap()));
-            var place = await _appDbContext.Places.FindAsync(id);
+        { 
+        //{
+        //    var mapper = new Mapper(new MapperConfiguration
+        //        (cfg => cfg.CreateMap<Place, PlaceViewModel>().ReverseMap()));
+            var place = await _repository.Places.FindByIdAsync(id);
             if (place is not null)
             {
-                var res = mapper.Map<PlaceViewModel>(place);
+                var res = _mapper.Map<PlaceViewModel>(place);
                 return res;
                 
             }
@@ -101,6 +101,8 @@ namespace kudapoyti.Service.Services.KudaPaytiService
         public async Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto)
         {
             var place = await _repository.Places.FindByIdAsync(id);
+            //_repository.Entry<User>(temp!).State = EntityState.Detached;
+            _repository.Entry<Place>(place!).State = EntityState.Detached;
             if (place is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
             var updatePlace = _mapper.Map<Place>(updateDto);
             if (updateDto.Image is not null)
@@ -109,6 +111,7 @@ namespace kudapoyti.Service.Services.KudaPaytiService
                 updatePlace.ImageUrl = await _imageService.SaveImageAsync(updateDto.Image);
             }
             updatePlace.Id = id;
+            updatePlace.CreatedAt = TimeHelper.GetCurrentServerTime();
             _repository.Places.UpdateAsync(id, updatePlace);
             var result = await _repository.SaveChangesAsync();
             return result > 0;

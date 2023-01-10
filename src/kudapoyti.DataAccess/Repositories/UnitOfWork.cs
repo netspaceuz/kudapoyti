@@ -8,6 +8,8 @@ using kudapoyti.DataAccess.Repositories.Admins;
 using kudapoyti.DataAccess.Repositories.Comments;
 using kudapoyti.DataAccess.Repositories.Photos;
 using kudapoyti.DataAccess.Repositories.Places;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +42,11 @@ namespace kudapoyti.DataAccess.Repositories
         public async Task<int> SaveChangesAsync()
         {
             return await _dbContext.SaveChangesAsync();
+        }
+
+        public EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
+        {
+            return _dbContext.Entry(entity);
         }
     }
 }

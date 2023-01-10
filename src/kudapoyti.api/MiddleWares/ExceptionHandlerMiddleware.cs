@@ -47,7 +47,7 @@ namespace kudapoyti.api.MiddleWares
             ErrorDto errorDto = new()
             {
                 StatusCode = 500,
-                Message = exception.Message
+                Message = exception.Message+"\n"+exception.ToString()
             };
             string jsonData = JsonConvert.SerializeObject(errorDto, Formatting.Indented);
             httpContext.Response.StatusCode = 500;
