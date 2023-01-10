@@ -15,7 +15,7 @@ namespace kudapoyti.Service.Interfaces
     {
 
         public Task<IEnumerable<Place>> GetAllAsync(PaginationParams @paginationParams);
-        public Task<Place> GetAsync(long id);
+        public Task<PlaceViewModel> GetAsync(long id);
         public Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto);
         public Task<bool> DeleteAsync(long id);
         public Task<bool> CreateAsync(PlaceCreateDto createDto);

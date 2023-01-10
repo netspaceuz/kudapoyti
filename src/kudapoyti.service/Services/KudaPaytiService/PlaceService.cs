@@ -39,9 +39,9 @@ namespace kudapoyti.Service.Services.KudaPaytiService
         }
         public async Task<bool> CreateAsync(PlaceCreateDto dto)
         {
-            var entity = (Domain.Entities.Places.Place)dto;
+            var entity =_mapper.Map<Place>(dto);
             entity.rank = 0;
-            entity.rankedUsersCount= 0;
+            entity.rankedUsersCount = 0;
             entity.Ranked_point = 0;
             entity.ImageUrl = await _imageService.SaveImageAsync(dto.Image!);
             entity.CreatedAt = TimeHelper.GetCurrentServerTime();
@@ -70,13 +70,16 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             return data;
         }
 
-        public async Task<Place> GetAsync(long id)
+        public async Task<PlaceViewModel> GetAsync(long id)
         {
-            var place = await _repository.Places.FindByIdAsync(id);
+            var mapper = new Mapper(new MapperConfiguration
+                (cfg => cfg.CreateMap<Place, PlaceViewModel>().ReverseMap()));
+            var place = await _appDbContext.Places.FindAsync(id);
             if (place is not null)
             {
-                var res = _mapper.Map<Place>(place);
+                var res = mapper.Map<PlaceViewModel>(place);
                 return res;
+                
             }
             else throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
         }

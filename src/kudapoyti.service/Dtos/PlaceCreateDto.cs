@@ -34,18 +34,18 @@ namespace kudapoyti.Service.Dtos
         [Required(ErrorMessage ="Plase upload a picture of the place.")]
         public IFormFile? Image { get; set; } 
 
-        public static implicit operator Place(PlaceCreateDto dto)
-        {
-            return new Place()
-            {
-                Title = dto.Title,
-                Description = dto.Description,
-                Location_link = dto.LocationLink,
-                PlaceSiteUrl = dto.PlaceSiteUrl,
-                Region = dto.Region,
-                ImageUrl = dto.Image!.ToString()
-            };
-        }
+        //public static implicit operator Place(PlaceCreateDto dto)
+        //{
+        //    return new Place()
+        //    {
+        //        Title = dto.Title,
+        //        Description = dto.Description,
+        //        Location_link = dto.LocationLink,
+        //        PlaceSiteUrl = dto.PlaceSiteUrl,
+        //        Region = dto.Region,
+        //        ImageUrl = dto.Image!.ToString()
+        //    };
+        //}
 
     }
 }
