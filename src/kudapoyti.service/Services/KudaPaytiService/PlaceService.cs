@@ -69,12 +69,6 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             var data = await _paginator.ToPagedAsync(query, @paginationParams.PageNumber, @paginationParams.PageSize);
             return data;
         }
-
-        public Task<IEnumerable<Place>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<PlaceViewModel> GetAsync(long id)
         { 
         //{
