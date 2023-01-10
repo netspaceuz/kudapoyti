@@ -18,6 +18,7 @@ using kudapoyti.Service.Interfaces.Common;
 using kudapoyti.Service.Common.Utils;
 using kudapoyti.Service.Services.Common;
 using kudapoyti.DataAccess.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace kudapoyti.Service.Services.KudaPaytiService
 {
@@ -70,6 +71,11 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             return data;
         }
 
+        public Task<IEnumerable<Place>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<PlaceViewModel> GetAsync(long id)
         {
             var mapper = new Mapper(new MapperConfiguration
@@ -83,25 +89,29 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             }
             else throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
         }
-
+        public async Task<IEnumerable<PlaceViewModel>> GetByKeyword(string keyword)
+        {
+            IEnumerable<PlaceViewModel> places = await _appDbContext.Places
+                .Where(x=>x.Title.ToLower().Contains(keyword.ToLower())
+                || x.Description.ToLower().Contains(keyword.ToLower())
+                || x.Region.ToLower().Contains(keyword.ToLower()))
+                .Select(x => _mapper.Map<PlaceViewModel>(x)).ToListAsync();
+            return places;
+        }
         public async Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto)
         {
             var place = await _repository.Places.FindByIdAsync(id);
             if (place is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
-
-            var updatePlace = _mapper.Map<Domain.Entities.Places.Place>(updateDto);
-
+            var updatePlace = _mapper.Map<Place>(updateDto);
             if (updateDto.Image is not null)
             {
                 await _imageService.DeleteImageAsync(place.ImageUrl!);
                 updatePlace.ImageUrl = await _imageService.SaveImageAsync(updateDto.Image);
             }
             updatePlace.Id = id;
-
             _repository.Places.UpdateAsync(id, updatePlace);
             var result = await _repository.SaveChangesAsync();
             return result > 0;
         }
-
     }
 }

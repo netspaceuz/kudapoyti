@@ -41,5 +41,10 @@ namespace kudapoyti.api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateByIdAsync(long id, [FromForm] PlaceUpdateDto obj) 
             => Ok(await _placeService.UpdateAsync(id, obj));
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchAsync(string keyword)
+            => Ok(await _placeService.GetByKeyword(keyword));
+
     }
 }
