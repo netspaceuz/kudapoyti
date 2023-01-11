@@ -8,13 +8,15 @@ namespace kudapoyti.Service.ViewModels
 {
     public class PlaceViewModel
     {
+        public long Id { get; set; }
+
+        public string ImageUrl { get; set; }=String.Empty;
+
         public string Title { get; set; } = string.Empty;
 
         public string Description { get; set; } = string.Empty;
 
         public double rank { get; set; }
-
-        public long Ranked_point { get; set; }
 
         public string Location_link { get; set; } = String.Empty;
 

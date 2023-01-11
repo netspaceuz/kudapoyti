@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kudapoyti.api", "src\kudapo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kudopoyti.UnitTest", "tests\kudopoyti.UnitTest\kudopoyti.UnitTest.csproj", "{CF851089-56AC-44A2-8EB1-191E5AC7094E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kudopoytiIntegration.UnitTest", "TestProject1\kudopoytiIntegration.UnitTest.csproj", "{3E5B3F29-1469-4120-B4C4-DF94E8DE1929}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{CF851089-56AC-44A2-8EB1-191E5AC7094E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF851089-56AC-44A2-8EB1-191E5AC7094E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF851089-56AC-44A2-8EB1-191E5AC7094E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E5B3F29-1469-4120-B4C4-DF94E8DE1929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E5B3F29-1469-4120-B4C4-DF94E8DE1929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E5B3F29-1469-4120-B4C4-DF94E8DE1929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E5B3F29-1469-4120-B4C4-DF94E8DE1929}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{81227819-4544-4CC3-AA6B-847A0ACB0D52} = {4A87163B-C784-4C9D-93B3-6E9C4589D370}
 		{840BBF4C-FA00-4578-9B30-B2BB9132D81D} = {4A87163B-C784-4C9D-93B3-6E9C4589D370}
 		{CF851089-56AC-44A2-8EB1-191E5AC7094E} = {9C613ED2-1B60-4197-BB06-941D076E2F10}
+		{3E5B3F29-1469-4120-B4C4-DF94E8DE1929} = {9C613ED2-1B60-4197-BB06-941D076E2F10}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF90657E-291A-432E-BD2B-C456EA5F0DF8}
