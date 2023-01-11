@@ -63,9 +63,9 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             else throw new StatusCodeException(HttpStatusCode.NotFound, "Car is not found.");
         }
 
-        public async Task<IEnumerable<Place>> GetAllAsync(PaginationParams @paginationParams)
+        public async Task<IEnumerable<PlaceViewModel>> GetAllAsync(PaginationParams @paginationParams)
         {
-            var query = _repository.Places.GetAll().OrderBy(x=>x.rank);
+            var query = _repository.Places.GetAll().OrderBy(x=>x.rank).Select(x => _mapper.Map<PlaceViewModel>(x));
             var data = await _paginator.ToPagedAsync(query, @paginationParams.PageNumber, @paginationParams.PageSize);
             return data;
         }
