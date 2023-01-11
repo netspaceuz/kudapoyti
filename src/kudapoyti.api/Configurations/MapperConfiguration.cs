@@ -2,9 +2,6 @@
 using kudapoyti.Domain.Entities.Admins;
 using kudapoyti.Domain.Entities.Places;
 using kudapoyti.Service.Dtos;
-using kudapoyti.Service.Dtos.Accounts;
-using kudapoyti.Service.Interfaces.Common;
-using kudapoyti.Service.Services.Common;
 using kudapoyti.Service.ViewModels;
 
 namespace kudapoyti.api.Configurations;
