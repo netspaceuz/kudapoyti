@@ -3,7 +3,6 @@ using kudapoyti.Service.Common.Security;
 using kudapoyti.Service.Dtos.AccountDTOs;
 using kudapoyti.Service.Interfaces.CommentServices;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
 using System.Linq;

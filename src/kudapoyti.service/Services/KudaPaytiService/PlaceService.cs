@@ -63,23 +63,19 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             else throw new StatusCodeException(HttpStatusCode.NotFound, "Car is not found.");
         }
 
-        public async Task<IEnumerable<Place>> GetAllAsync(PaginationParams @paginationParams)
+        public async Task<IEnumerable<PlaceViewModel>> GetAllAsync(PaginationParams @paginationParams)
         {
-            var query = _repository.Places.GetAll().OrderBy(x=>x.rank);
+            var query = _repository.Places.GetAll().OrderBy(x=>x.rank).Select(x => _mapper.Map<PlaceViewModel>(x));
             var data = await _paginator.ToPagedAsync(query, @paginationParams.PageNumber, @paginationParams.PageSize);
             return data;
         }
         public async Task<PlaceViewModel> GetAsync(long id)
         { 
-        //{
-        //    var mapper = new Mapper(new MapperConfiguration
-        //        (cfg => cfg.CreateMap<Place, PlaceViewModel>().ReverseMap()));
             var place = await _repository.Places.FindByIdAsync(id);
             if (place is not null)
             {
                 var res = _mapper.Map<PlaceViewModel>(place);
                 return res;
-                
             }
             else throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
         }
@@ -95,10 +91,9 @@ namespace kudapoyti.Service.Services.KudaPaytiService
         public async Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto)
         {
             var place = await _repository.Places.FindByIdAsync(id);
-            //_repository.Entry<User>(temp!).State = EntityState.Detached;
-            _repository.Entry<Place>(place!).State = EntityState.Detached;
             if (place is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
-            var updatePlace = _mapper.Map<Place>(updateDto);
+            _repository.Entry<Place>(place!).State = EntityState.Detached;
+            var updatePlace = (Place)updateDto;
             if (updateDto.Image is not null)
             {
                 await _imageService.DeleteImageAsync(place.ImageUrl!);

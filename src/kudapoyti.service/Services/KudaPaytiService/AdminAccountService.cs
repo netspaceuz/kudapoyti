@@ -6,7 +6,6 @@ using kudapoyti.Service.Common.Security;
 using kudapoyti.Service.Dtos.Accounts;
 using kudapoyti.Service.Interfaces;
 using kudapoyti.Service.Interfaces.Common;
-using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
 using System.Linq;

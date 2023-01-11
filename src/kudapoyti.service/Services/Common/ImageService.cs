@@ -43,7 +43,7 @@ namespace kudapoyti.Service.Services.Common
             var stream = new FileStream(ImagePath, FileMode.Create);
             try
             {
-                await stream.CopyToAsync(stream);
+                await file.CopyToAsync(stream);
                 return Path.Combine(images, ImageName);
             }
             catch

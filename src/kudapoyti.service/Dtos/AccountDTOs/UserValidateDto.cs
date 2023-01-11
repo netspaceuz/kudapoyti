@@ -1,6 +1,5 @@
 ﻿using kudapoyti.Service.Common.Attributes;
 using kudapoyti.Service.Enums;
-using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

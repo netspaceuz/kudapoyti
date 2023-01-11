@@ -1,6 +1,5 @@
 ﻿using kudapoyti.Service.Dtos.AccountDTOs;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Graph;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
