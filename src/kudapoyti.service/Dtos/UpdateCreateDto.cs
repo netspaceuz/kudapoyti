@@ -30,10 +30,10 @@ namespace kudapoyti.Service.Dtos
         [ MinLength(8), StrongPassword]
         public string Password { get; set; } = string.Empty;
 
-        public static implicit operator Admin1(UpdateCreateDto accountRegisterDto)
+        public static implicit operator Admin(UpdateCreateDto accountRegisterDto)
         {
             var hasherResult = PasswordHasher.Hash(accountRegisterDto.Password);
-            return new Admin1()
+            return new Admin()
             {
                 FullName = accountRegisterDto.FullName,
                 Email = accountRegisterDto.Email,

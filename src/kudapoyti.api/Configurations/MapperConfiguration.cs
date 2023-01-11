@@ -15,7 +15,7 @@ public class MapperConfiguration : Profile
         //CreateMap<PlaceCreateDto, Place>().ReverseMap();
         //CreateMap<PlaceUpdateDto, Place>().ReverseMap();
         CreateMap<PlaceViewModel, Place >().ReverseMap();
-        CreateMap<AdminCreateDto,Admin1>().ReverseMap(); 
-        CreateMap<AdminViewModel, Admin1>().ReverseMap();
+        CreateMap<AdminCreateDto,Admin>().ReverseMap(); 
+        CreateMap<AdminViewModel, Admin>().ReverseMap();
     }
 }

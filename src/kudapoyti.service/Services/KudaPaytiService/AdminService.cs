@@ -48,18 +48,18 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             else throw new StatusCodeException(HttpStatusCode.NotFound, "Admin not found");
         }
 
-        public async Task<IEnumerable<Admin1>> GetAllAysnc(PaginationParams @params)
+        public async Task<IEnumerable<Admin>> GetAllAysnc(PaginationParams @params)
         {
             var query = _work.Admins.GetAll().OrderBy(x => x.Id);
             var result = await _pager.ToPagedAsync(query, @params.PageNumber, @params.PageSize);
             return result;
         }
-        public async Task<Admin1> GetAysnc(long id)
+        public async Task<Admin> GetAysnc(long id)
         {
             var get = await _work.Admins.FindByIdAsync(id);
             if (get is not null)
             {
-                var re= _mapper.Map<Admin1>(get);
+                var re= _mapper.Map<Admin>(get);
                 return re;
             } 
             else throw new StatusCodeException(HttpStatusCode.NotFound, "Admin not faund");
@@ -71,7 +71,7 @@ namespace kudapoyti.Service.Services.KudaPaytiService
                 throw new StatusCodeException(HttpStatusCode.Conflict, "Email alredy exist");
 
             var hasherResult = PasswordHasher.Hash(registerDto.Password);
-            var admin = (Admin1)registerDto;
+            var admin = (Admin)registerDto;
             admin.PasswordHash = hasherResult.passwordHash;
             admin.Salt = hasherResult.salt;
             _work.Admins.CreateAsync(admin);
@@ -82,10 +82,10 @@ namespace kudapoyti.Service.Services.KudaPaytiService
         public async Task<bool> UpdateAysnc(long id, UpdateCreateDto dto)
         {
             var update = await appDb.Admins.FindAsync(id);
-            appDb.Entry<Admin1>(update!).State=Microsoft.EntityFrameworkCore.EntityState.Detached;
+            appDb.Entry<Admin>(update!).State=Microsoft.EntityFrameworkCore.EntityState.Detached;
             if (dto is not null)
             {
-                var res = _mapper.Map<Admin1>(dto);
+                var res = _mapper.Map<Admin>(dto);
                 res.Id = id;
                 appDb.Admins.Update(res);
                 var result = await appDb.SaveChangesAsync();

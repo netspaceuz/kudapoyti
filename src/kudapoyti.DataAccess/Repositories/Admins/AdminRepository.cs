@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace kudapoyti.DataAccess.Repositories.Admins;
 
-public class AdminRepository:GenericRepository<Admin1>,IAdminRepository
+public class AdminRepository:GenericRepository<Admin>,IAdminRepository
 {
     public AdminRepository(AppDbContext context) : base(context)
     {
