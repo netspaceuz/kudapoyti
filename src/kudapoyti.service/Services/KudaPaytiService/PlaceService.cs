@@ -71,15 +71,11 @@ namespace kudapoyti.Service.Services.KudaPaytiService
         }
         public async Task<PlaceViewModel> GetAsync(long id)
         { 
-        //{
-        //    var mapper = new Mapper(new MapperConfiguration
-        //        (cfg => cfg.CreateMap<Place, PlaceViewModel>().ReverseMap()));
             var place = await _repository.Places.FindByIdAsync(id);
             if (place is not null)
             {
                 var res = _mapper.Map<PlaceViewModel>(place);
                 return res;
-                
             }
             else throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
         }
@@ -95,7 +91,6 @@ namespace kudapoyti.Service.Services.KudaPaytiService
         public async Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto)
         {
             var place = await _repository.Places.FindByIdAsync(id);
-            //_repository.Entry<User>(temp!).State = EntityState.Detached;
             _repository.Entry<Place>(place!).State = EntityState.Detached;
             if (place is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
             var updatePlace = _mapper.Map<Place>(updateDto);
