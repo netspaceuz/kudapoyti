@@ -30,12 +30,11 @@ namespace kudapoyti.Service.Services.KudaPaytiService
         private readonly AppDbContext _appDbContext;
         private readonly IImageService _imageService;
 
-        public PlaceService(IUnitOfWork unitOfWork,IMapper mapper,  AppDbContext appDbContext, IImageService imageService, IPaginationService paginatorService)
+        public PlaceService(IUnitOfWork unitOfWork,IMapper mapper, IImageService imageService, IPaginationService paginatorService)
         {
             this._paginator = paginatorService;
             this._repository = unitOfWork;
             this._mapper = mapper;
-            this._appDbContext = appDbContext;
             this._imageService = imageService;
         }
         public async Task<bool> CreateAsync(PlaceCreateDto dto)
@@ -81,12 +80,13 @@ namespace kudapoyti.Service.Services.KudaPaytiService
         }
         public async Task<IEnumerable<PlaceViewModel>> GetByKeyword(string keyword)
         {
-            IEnumerable<PlaceViewModel> places = await _appDbContext.Places
+            IEnumerable<PlaceViewModel> places = await _repository.Places
                 .Where(x=>x.Title.ToLower().Contains(keyword.ToLower())
                 || x.Description.ToLower().Contains(keyword.ToLower())
                 || x.Region.ToLower().Contains(keyword.ToLower()))
                 .Select(x => _mapper.Map<PlaceViewModel>(x)).ToListAsync();
-            return places;
+            if (places is not null) return places;
+            else throw new StatusCodeException(HttpStatusCode.NotFound, $"No info has been found related to {keyword}");
         }
         public async Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto)
         {
@@ -102,6 +102,19 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             updatePlace.Id = id;
             updatePlace.CreatedAt = TimeHelper.GetCurrentServerTime();
             _repository.Places.UpdateAsync(id, updatePlace);
+            var result = await _repository.SaveChangesAsync();
+            return result > 0;
+        }
+        public async Task<bool> AddRankPoint(long placeId, int rank)
+        {
+            var place = await _repository.Places.FindByIdAsync(placeId);
+            if (place is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
+            _repository.Entry<Place>(place!).State = EntityState.Detached;
+            place.rankedUsersCount += 1;
+            place.Ranked_point += rank;
+            place.rank = place.Ranked_point/ place.rankedUsersCount;
+
+            _repository.Places.UpdateAsync(placeId, place);
             var result = await _repository.SaveChangesAsync();
             return result > 0;
         }
