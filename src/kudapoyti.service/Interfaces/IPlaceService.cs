@@ -18,5 +18,7 @@ namespace kudapoyti.Service.Interfaces
         public Task<IEnumerable<PlaceViewModel>> GetByKeyword(string keyword);
         public Task<bool> DeleteAsync(long id);
         public Task<bool> CreateAsync(PlaceCreateDto createDto);
+        public Task<bool> AddRankPoint(long placeId, int rank);
+
     }
 }

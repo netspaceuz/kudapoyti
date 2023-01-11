@@ -22,13 +22,17 @@ namespace kudapoyti.api.Controllers
         {
             this._placeService = placeService;
         }
-        [HttpGet]
+        [HttpGet("{page}")]
         public async Task<IActionResult> GetAllAsync(int page) 
             => Ok(await _placeService.GetAllAsync(new PaginationParams(page, _pageSize)));
 
-        [HttpGet("{id}"), AllowAnonymous]
+        [HttpGet("[action]/{id}"), AllowAnonymous]
         public async Task<IActionResult> GetByIdAsync(long id) 
             => Ok(await _placeService.GetAsync(id));
+
+        [HttpGet("[action]/[action]/{keyword}")]
+        public async Task<IActionResult> SearchAsync(string keyword)
+            => Ok(await _placeService.GetByKeyword(keyword));
 
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromForm] PlaceCreateDto dto) 
@@ -41,10 +45,10 @@ namespace kudapoyti.api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateByIdAsync(long id, [FromForm] PlaceUpdateDto obj) 
             => Ok(await _placeService.UpdateAsync(id, obj));
-
-        [HttpGet("search")]
-        public async Task<IActionResult> SearchAsync(string keyword)
-            => Ok(await _placeService.GetByKeyword(keyword));
+        
+        [HttpPut("[action]/{placeId}"), AllowAnonymous]
+        public async Task<IActionResult> RankAsync(long placeId, int rank )
+            =>Ok(await _placeService.AddRankPoint(placeId, rank));
 
     }
 }
