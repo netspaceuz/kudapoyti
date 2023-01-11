@@ -13,8 +13,8 @@ public class MapperConfiguration : Profile
     public MapperConfiguration()
     {
         //CreateMap<PlaceCreateDto, Place>().ReverseMap();
-        CreateMap<PlaceUpdateDto, Place>().ReverseMap();
-        CreateMap<Place, PlaceViewModel>().ReverseMap();
+        //CreateMap<PlaceUpdateDto, Place>().ReverseMap();
+        CreateMap<PlaceViewModel, Place >().ReverseMap();
         CreateMap<AdminCreateDto,Admin1>().ReverseMap(); 
         CreateMap<AdminViewModel, Admin1>().ReverseMap();
     }

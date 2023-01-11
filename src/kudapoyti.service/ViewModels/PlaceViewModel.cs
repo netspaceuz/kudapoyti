@@ -12,11 +12,11 @@ namespace kudapoyti.Service.ViewModels
 
         public string Description { get; set; } = string.Empty;
 
-        public double Rank { get; set; }
+        public double rank { get; set; }
 
-        public long RankedPoint { get; set; }
+        public long Ranked_point { get; set; }
 
-        public string LocationLink { get; set; } = String.Empty;
+        public string Location_link { get; set; } = String.Empty;
 
         public string PlaceSiteUrl { get; set; } = String.Empty;
 

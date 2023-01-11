@@ -91,9 +91,9 @@ namespace kudapoyti.Service.Services.KudaPaytiService
         public async Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto)
         {
             var place = await _repository.Places.FindByIdAsync(id);
-            _repository.Entry<Place>(place!).State = EntityState.Detached;
             if (place is null) throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found");
-            var updatePlace = _mapper.Map<Place>(updateDto);
+            _repository.Entry<Place>(place!).State = EntityState.Detached;
+            var updatePlace = (Place)updateDto;
             if (updateDto.Image is not null)
             {
                 await _imageService.DeleteImageAsync(place.ImageUrl!);
