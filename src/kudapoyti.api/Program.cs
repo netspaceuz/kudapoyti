@@ -6,7 +6,6 @@ using kudapoyti.Service.Interfaces.CommentServices;
 using kudapoyti.Service.Interfaces.Common;
 using kudapoyti.Service.Services.Common;
 using kudapoyti.Service.Services;
-using kudapoyti.Service.Services.Common;
 using kudapoyti.Service.Services.KudaPaytiService;
 using Microsoft.Extensions.Caching.Memory;
 using kudapoyti.Service.Services.CommentServices;
@@ -37,6 +36,8 @@ builder.Services.ConfigureSwaggerAuthorize();
 //Mapper
 builder.Services.AddAutoMapper(typeof(MapperConfiguration));
 
+//Logger 
+builder.Configuration();
 
 //database
 builder.ConfigureDataAccess();
