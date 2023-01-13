@@ -48,18 +48,18 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             else throw new StatusCodeException(HttpStatusCode.NotFound, "Admin not found");
         }
 
-        public async Task<IEnumerable<Admin1>> GetAllAysnc(PaginationParams @params)
+        public async Task<IEnumerable<AdminViewModel>> GetAllAysnc(PaginationParams @params)
         {
-            var query = _work.Admins.GetAll().OrderBy(x => x.Id);
+            var query = _work.Admins.GetAll().OrderBy(x => x.Id).Select(x => _mapper.Map<AdminViewModel>(x));
             var result = await _pager.ToPagedAsync(query, @params.PageNumber, @params.PageSize);
             return result;
         }
-        public async Task<Admin1> GetAysnc(long id)
+        public async Task<AdminViewModel> GetAysnc(long id)
         {
             var get = await _work.Admins.FindByIdAsync(id);
             if (get is not null)
             {
-                var re= _mapper.Map<Admin1>(get);
+                var re= _mapper.Map<AdminViewModel>(get);
                 return re;
             } 
             else throw new StatusCodeException(HttpStatusCode.NotFound, "Admin not faund");

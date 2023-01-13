@@ -27,7 +27,6 @@ namespace kudapoyti.Service.Services.KudaPaytiService
         private readonly IPaginationService _paginator;
         private readonly IUnitOfWork _repository;
         private readonly IMapper _mapper;
-        private readonly AppDbContext _appDbContext;
         private readonly IImageService _imageService;
 
         public PlaceService(IUnitOfWork unitOfWork,IMapper mapper, IImageService imageService, IPaginationService paginatorService)
