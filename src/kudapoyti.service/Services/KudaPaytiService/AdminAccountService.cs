@@ -6,6 +6,8 @@ using kudapoyti.Service.Common.Security;
 using kudapoyti.Service.Dtos.Accounts;
 using kudapoyti.Service.Interfaces;
 using kudapoyti.Service.Interfaces.Common;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,7 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             _work = repository;
             _auth = authManager;
             _image = image;
+            
         }
 
         public async Task<string> LoginAsync(AdminAccountLoginDto loginDto)
@@ -39,6 +42,7 @@ namespace kudapoyti.Service.Services.KudaPaytiService
                 return _auth.GenerateToken(admin);
             }
             else throw new StatusCodeException(HttpStatusCode.BadRequest, "Password is wrong!");
+
         }
 
     }

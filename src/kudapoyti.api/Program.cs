@@ -25,14 +25,18 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IAuthManager, AUthManager>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddSingleton<ICacheService, CacheService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddScoped<IAdminAccountService, AdminAccountService>();
 builder.Services.AddScoped<IPaginationService, PaginatonService>();
 builder.Services.AddScoped<IPlaceService, PlaceService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
-
+builder.ConfigureAuth();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+});
 builder.Services.ConfigureSwaggerAuthorize();
-
 //Mapper
 builder.Services.AddAutoMapper(typeof(MapperConfiguration));
 
@@ -41,7 +45,6 @@ builder.Configuration();
 
 //database
 builder.ConfigureDataAccess();
-
 //Middleware
 var app = builder.Build();
 app.UseMiddleware<ExceptionHandlerMiddleware>();

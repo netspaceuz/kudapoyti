@@ -58,7 +58,7 @@ namespace kudapoyti.Service.Services.KudaPaytiService
                 var result = await _repository.SaveChangesAsync();
                 return result > 0;
             }
-            else throw new StatusCodeException(HttpStatusCode.NotFound, "Car is not found.");
+            else throw new StatusCodeException(HttpStatusCode.NotFound, "Place is not found.");
         }
 
         public async Task<IEnumerable<PlaceViewModel>> GetAllAsync(PaginationParams @paginationParams)

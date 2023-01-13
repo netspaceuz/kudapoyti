@@ -1,10 +1,27 @@
-﻿namespace kudapoyti.api.Configurations
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
+namespace kudapoyti.api.Configurations
 {
     public static class JwtConfiguration
     {
-        public static void ConfigureAuth(this WebApplicationBuilder webApplicationBuilder)
+        public static void ConfigureAuth(this WebApplicationBuilder builder)
         {
-            var config = webApplicationBuilder.Configuration.GetSection("Jwt");
+            var _config = builder.Configuration.GetSection("Jwt");
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+              .AddJwtBearer(options =>
+              {
+                  options.TokenValidationParameters = new TokenValidationParameters()
+                  {
+                      ValidateIssuer = true,
+                      ValidIssuer = _config["Issuer"],
+                      ValidateAudience = false,
+                      ValidateLifetime = true,
+                      ValidateIssuerSigningKey = true,
+                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["SecretKey"]))
+                  };
+              });
         }
     }
 }
