@@ -32,7 +32,6 @@ namespace kudapoyti.Service.Services.CommentServices
                     entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
                     return Task.FromResult(string.Empty);
                 });
-
                 if (string.IsNullOrEmpty(value))
                 {
                     throw new StatusCodeException(System.Net.HttpStatusCode.Forbidden, "Verification code time limit expired");
@@ -48,7 +47,7 @@ namespace kudapoyti.Service.Services.CommentServices
                 throw ex;
             }
         }
-
+        
         public async Task SetValueAsync(string code,UserValidateDto user)
         {
             var userJson = JsonConvert.SerializeObject(user);
