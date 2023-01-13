@@ -1,4 +1,7 @@
-﻿using kudapoyti.Service.Dtos.AccountDTOs;
+﻿using kudapoyti.Domain.Entities.Admins;
+using kudapoyti.Service.Common.Helpers;
+using kudapoyti.Service.Dtos.AccountDTOs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -14,41 +17,30 @@ namespace kudapoyti.Service.Common.Security
     public class AUthManager : IAuthManager
     {
         private readonly IConfiguration _config;
-
         public AUthManager(IConfiguration configuration)
         {
             _config = configuration.GetSection("Jwt");
         }
-        public string GenerateToken(Domain.Entities.Admins.Admin1 admin)
+        public string GenerateToken(dynamic admin)
         {
-            var claims = new[]
+            if(admin.GetType() == typeof(UserValidateDto))
             {
-                new Claim("Id", admin.Id.ToString()),
-                new Claim(ClaimTypes.Email, admin.Email),
-                new Claim(ClaimTypes.Role, admin.Role.ToString())
+                admin = (Admin1)admin;
             };
-            return CommonDoing(claims);
-        }
-        public string GenerateToken(UserValidateDto user)
-        {
             var claims = new[]
-            {
-                new Claim(ClaimTypes.Name,user.Name),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.UserRole.ToString())
-            };
-            return CommonDoing(claims);
-        }
-        private string CommonDoing(Claim[] claims)
         {
+            new Claim(ClaimTypes.Email, admin.Email),
+            new Claim(ClaimTypes.Name,admin.FullName),
+            new Claim(ClaimTypes.Role, admin.Role.ToString())
+        };
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["SecretKey"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
-            var tokenDescriptor = new JwtSecurityToken(_config["Issure"], _config["Audience"], claims,
+            var tokenDescriptor = new JwtSecurityToken(_config["Issuer"], _config["Audience"], claims,
                 expires: DateTime.Now.AddMinutes(double.Parse(_config["Lifetime"])),
                 signingCredentials: credentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            return tokenHandler.WriteToken(tokenDescriptor);
         }
     }
 }

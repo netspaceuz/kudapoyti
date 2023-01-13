@@ -10,7 +10,6 @@ namespace kudapoyti.Service.Common.Security
 {
     public interface IAuthManager
     {
-        public string GenerateToken(Admin1 admin);
-        public string GenerateToken(UserValidateDto userdto);
+        public string GenerateToken(dynamic admin);
     }
 }

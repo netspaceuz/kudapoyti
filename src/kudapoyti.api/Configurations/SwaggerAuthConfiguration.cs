@@ -17,7 +17,6 @@ namespace kudapoyti.api.Configurations
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey
                 });
-
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {

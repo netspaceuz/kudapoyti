@@ -5,8 +5,6 @@ using kudapoyti.Service.Interfaces;
 using kudapoyti.Service.Interfaces.CommentServices;
 using kudapoyti.Service.Interfaces.Common;
 using kudapoyti.Service.Services.Common;
-using kudapoyti.Service.Services;
-using kudapoyti.Service.Services.Common;
 using kudapoyti.Service.Services.KudaPaytiService;
 using Microsoft.Extensions.Caching.Memory;
 using kudapoyti.Service.Services.CommentServices;
@@ -26,21 +24,22 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IAuthManager, AUthManager>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddSingleton<ICacheService, CacheService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddScoped<IAdminAccountService, AdminAccountService>();
 builder.Services.AddScoped<IPaginationService, PaginatonService>();
 builder.Services.AddScoped<IPlaceService, PlaceService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
-
+builder.ConfigureAuth();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+});
 builder.Services.ConfigureSwaggerAuthorize();
-
 //Mapper
 builder.Services.AddAutoMapper(typeof(MapperConfiguration));
-
-
 //database
 builder.ConfigureDataAccess();
-
 //Middleware
 var app = builder.Build();
 app.UseMiddleware<ExceptionHandlerMiddleware>();

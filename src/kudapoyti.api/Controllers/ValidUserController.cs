@@ -1,9 +1,16 @@
-﻿using kudapoyti.Service.Common.Exceptions;
+﻿using kudapoyti.Service.Common.Attributes;
+using kudapoyti.Service.Common.Exceptions;
 using kudapoyti.Service.Dtos.AccountDTOs;
+using kudapoyti.Service.Helpers;
 using kudapoyti.Service.Interfaces.CommentServices;
 using kudapoyti.Service.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
+
 
 namespace kudapoyti.api.Controllers
 {
@@ -23,7 +30,7 @@ namespace kudapoyti.api.Controllers
             try
             {
                 await _userService.LoginAsync(validateDto);
-                return Ok(validateDto);
+                return Ok();
             }
             catch (Exception ex) 
             {
@@ -31,8 +38,9 @@ namespace kudapoyti.api.Controllers
             }
             
         }
-        [HttpPost("varify")]
-        public async Task<IActionResult> VerifyCodeAsync([FromForm] string code)
+        [HttpGet("verify")]
+        public async Task<IActionResult> VerifyCodeAsync([RegularExpression(@"^\d{6}$",
+            ErrorMessage = "Code must be 6 digits")] string code)
         {
             try
             {
