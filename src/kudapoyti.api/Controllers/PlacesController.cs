@@ -29,8 +29,10 @@ namespace kudapoyti.api.Controllers
         [HttpGet("[action]/{id}"), AllowAnonymous]
         public async Task<IActionResult> GetByIdAsync(long id) 
             => Ok(await _placeService.GetAsync(id));
-
-        [HttpGet("[action]/[action]/{keyword}")]
+        [HttpGet("[action]/{cityName}")]
+        public async Task<IActionResult> GetByCityAsync(string cityName)
+            => Ok(await _placeService.GetByCityAsync(cityName));
+        [HttpGet("[action]/{keyword}")]
         public async Task<IActionResult> SearchAsync(string keyword)
             => Ok(await _placeService.GetByKeyword(keyword));
 

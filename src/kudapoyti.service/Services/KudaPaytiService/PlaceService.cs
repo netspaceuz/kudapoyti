@@ -85,8 +85,16 @@ namespace kudapoyti.Service.Services.KudaPaytiService
                 || x.Description.ToLower().Contains(keyword.ToLower())
                 || x.Region.ToLower().Contains(keyword.ToLower()))
                 .Select(x => _mapper.Map<PlaceViewModel>(x)).ToListAsync();
-            if (places is not null) return places;
+            if (places.Count() != 0) return places;
             else throw new StatusCodeException(HttpStatusCode.NotFound, $"No info has been found related to {keyword}");
+        }
+        public async Task<IEnumerable<PlaceViewModel>> GetByCityAsync(string cityName)
+        {
+            IEnumerable<PlaceViewModel> places = await _repository.Places
+                .Where(x=>x.Region.ToLower().Contains(cityName.ToLower()))
+                .Select(x => _mapper.Map<PlaceViewModel>(x)).ToListAsync();
+            if (places.Count() != 0) return places;
+            else throw new StatusCodeException(HttpStatusCode.NotFound, $"No info has been found related to {cityName}");
         }
         public async Task<bool> UpdateAsync(long id, PlaceUpdateDto updateDto)
         {

@@ -14,9 +14,9 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace kudapoyti.api.Controllers
 {
-    [Route("api/validuser")]
     [ApiController]
-    public class ValidUserController : ControllerBase
+    [Route("api/validuser")]
+    public class ValidUserController: ControllerBase
     {
         private readonly IUserService _userService;
 
@@ -25,6 +25,7 @@ namespace kudapoyti.api.Controllers
             _userService = userService;
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> LoginAsync([FromForm] UserValidateDto validateDto)
         {
             try
