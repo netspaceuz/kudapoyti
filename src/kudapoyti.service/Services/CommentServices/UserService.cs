@@ -35,11 +35,11 @@ namespace kudapoyti.Service.Services.CommentServices
                 throw new StatusCodeException(HttpStatusCode.BadRequest, "Something went wrong");
             }
         }
-        public async Task<(bool,string)> VerifyCodeAsync(string code)
+        public async Task<(bool,string)> VerifyCodeAsync(string email,string code)
         {
             try
             {
-                var realCode = await cacheService.GetValueAsync();
+                var realCode = await cacheService.GetValueAsync(email);
                 if (realCode.Item1 != null)
                 {
                     if (realCode.Item1 == code)

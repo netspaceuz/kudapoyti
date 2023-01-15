@@ -18,16 +18,16 @@ namespace kudapoyti.Service.Services.CommentServices
         {
             _cache= memoryCache;
         }
-        public async Task<(string,UserValidateDto)> GetValueAsync()
+        public async Task<(string,UserValidateDto)> GetValueAsync(string email)
         {
             try
             {
-                var value = await _cache.GetOrCreateAsync("verifycode", entry =>
+                var value = await _cache.GetOrCreateAsync($"{email}:code", entry =>
                 {
                     entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
                     return Task.FromResult(string.Empty);
                 });
-                var user = await _cache.GetOrCreateAsync("user", entry =>
+                var user = await _cache.GetOrCreateAsync($"{email}", entry =>
                 {
                     entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
                     return Task.FromResult(string.Empty);
@@ -48,11 +48,11 @@ namespace kudapoyti.Service.Services.CommentServices
             }
         }
         
-        public async Task SetValueAsync(string code,UserValidateDto user)
+        public async Task SetValueAsync(string email,string code,UserValidateDto user)
         {
             var userJson = JsonConvert.SerializeObject(user);
-            await Task.Run(() => _cache.Set("user", userJson, TimeSpan.FromMinutes(5)));
-            await Task.Run(() => _cache.Set("verifycode", code, TimeSpan.FromMinutes(5)));
+            await Task.Run(() => _cache.Set($"{email}", userJson, TimeSpan.FromMinutes(5)));
+            await Task.Run(() => _cache.Set($"{email}:code", code, TimeSpan.FromMinutes(5)));
         }
     }
 }

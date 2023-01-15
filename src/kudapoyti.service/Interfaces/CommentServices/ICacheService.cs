@@ -9,7 +9,7 @@ namespace kudapoyti.Service.Interfaces.CommentServices
 {
     public interface ICacheService
     {
-        public Task SetValueAsync(string code,UserValidateDto user);
-        public Task<(string,UserValidateDto)> GetValueAsync();
+        public Task SetValueAsync(string email,string code,UserValidateDto user);
+        public Task<(string,UserValidateDto)> GetValueAsync(string email);
     }
 }
