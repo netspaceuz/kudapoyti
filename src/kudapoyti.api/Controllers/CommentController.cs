@@ -30,7 +30,6 @@ namespace kudapoyti.api.Controllers
             _commentservice = commentService;
         }
         [HttpPost]
-        [Authorize(Roles = "User")]
         public async Task<IActionResult> Create([FromForm] CommentCreateDto dto)
         {
             try
