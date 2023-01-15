@@ -16,7 +16,7 @@ namespace kudapoyti.Service.Dtos
         [Required, MaxLength(50), MinLength(5)]
         public string FullName { get; set; } = string.Empty;
 
-        [Required, MaxLength(25), MinLength(3), StrongEmail]
+        [Required, MaxLength(40), MinLength(3), StrongEmail]
         public string Email { get; set; } = string.Empty;
 
         [Required]

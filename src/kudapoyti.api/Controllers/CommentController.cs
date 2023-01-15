@@ -30,7 +30,6 @@ namespace kudapoyti.api.Controllers
             _commentservice = commentService;
         }
         [HttpPost]
-        [Authorize(Roles = "User")]
         public async Task<IActionResult> Create([FromForm] CommentCreateDto dto)
         {
             try
@@ -48,7 +47,7 @@ namespace kudapoyti.api.Controllers
                 throw new StatusCodeException(System.Net.HttpStatusCode.BadRequest, ex.Message);
             }
         }
-        [HttpGet("{id}"), Authorize(Roles = "Admin")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetByPlaceId([RegularExpression("^[0-9]+$", ErrorMessage = "Id must be a number")] long id, [RegularExpression("^[0-9]+$", ErrorMessage = "Pagenumber must be a digit")] int page)
             => Ok(await _commentservice.GetByPlaceId(id, new PaginationParams(page, _pageSize)));
         [HttpDelete]
