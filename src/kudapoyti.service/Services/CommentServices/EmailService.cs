@@ -35,14 +35,11 @@ namespace kudapoyti.Service.Services.CommentServices
 
                 mail.From = new MailAddress("fresh.uzmarket@gmail.com");
                 mail.To.Add(user.Email);
-                mail.Subject = "Action Verification from kudapoyti.uz";
-                mail.Body =
-                    $"Hi," +
-                    $"Please verify action\n" +
-                    $"YOUR CODE IS - {rand_num}\n"
-                    + "DON'T LET ANYONE TO KNOW THIS CODE OTHER THAN US\n";
+                mail.Subject = "Код подтверждения от KudaPoyti.Uz";
+                mail.Body = "Пожалуйста, подтвердите свой адрес электронной почты." +
+                    $"Проверочный код - {rand_num}";
                 await smtp.SendMailAsync(mail);
-                await _cacheService.SetValueAsync(rand_num.ToString(),user);
+                await _cacheService.SetValueAsync(user.Email,rand_num.ToString(),user);
             }
             catch (Exception ex)
             {

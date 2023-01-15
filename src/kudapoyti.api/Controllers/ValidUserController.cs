@@ -24,8 +24,7 @@ namespace kudapoyti.api.Controllers
         {
             _userService = userService;
         }
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [HttpPost, AllowAnonymous]
         public async Task<IActionResult> LoginAsync([FromForm] UserValidateDto validateDto)
         {
             try
@@ -39,13 +38,13 @@ namespace kudapoyti.api.Controllers
             }
             
         }
-        [HttpGet("verify")]
-        public async Task<IActionResult> VerifyCodeAsync([RegularExpression(@"^\d{6}$",
+        [HttpGet("verify"), AllowAnonymous]
+        public async Task<IActionResult> VerifyCodeAsync(string email, [RegularExpression(@"^\d{6}$",
             ErrorMessage = "Code must be 6 digits")] string code)
         {
             try
             {
-                var result = await _userService.VerifyCodeAsync(code);
+                var result = await _userService.VerifyCodeAsync(email,code);
                 if (result.Item1 == true)
                 {
                     return Ok($"{result.Item2}");

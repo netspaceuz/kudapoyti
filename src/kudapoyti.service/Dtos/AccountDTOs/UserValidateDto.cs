@@ -20,7 +20,6 @@ namespace kudapoyti.Service.Dtos.AccountDTOs
         public string Email { get; set; }
         [Required]
         public string Name { get; set; }
-        public Role Role { get; set; }
         public static implicit operator Admin1(UserValidateDto dto)
         {
             return new Admin1()
@@ -28,7 +27,7 @@ namespace kudapoyti.Service.Dtos.AccountDTOs
                 Id = 0,
                 Email  = dto.Email,
                 FullName = dto.Name,
-                Role = Domain.Enums.Role.Admin,
+                Role = Role.User,
             };
         }
     }
