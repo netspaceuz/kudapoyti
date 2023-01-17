@@ -17,11 +17,7 @@ namespace kudapoyti.Service.Dtos
         [StringLength(40, MinimumLength = 5, ErrorMessage = "The Title should be minimum 5 and maximum 50 characters.")]
         public string FullName { get; set; } = string.Empty;
 
-<<<<<<< HEAD
-        [Required, MaxLength(40), MinLength(3), StrongEmail]
-=======
         [Required, StrongEmail]
->>>>>>> 63fd3de (minor changes)
         public string Email { get; set; } = string.Empty;
 
         [Required]
