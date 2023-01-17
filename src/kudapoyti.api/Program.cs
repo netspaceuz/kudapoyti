@@ -59,8 +59,8 @@ app.UseCors("corspolicy");
 app.UseStaticFiles();
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
-//if (app.Services.GetService<IHttpContextAccessor>() != null)
-//    HttpContextHelper.Accessor = app.Services.GetRequiredService<IHttpContextAccessor>();
+if (app.Services.GetService<IHttpContextAccessor>() != null)
+    HttpContextHelper.Accessor = app.Services.GetRequiredService<IHttpContextAccessor>();
 
 app.UseAuthentication();
 app.UseAuthorization();
