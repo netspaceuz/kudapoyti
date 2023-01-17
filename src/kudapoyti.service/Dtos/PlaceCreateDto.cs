@@ -1,4 +1,5 @@
 ﻿using kudapoyti.Domain.Entities.Places;
+using kudapoyti.Service.Common.Attributes;
 using Microsoft.AspNetCore.Http;
 using Npgsql.Internal.TypeHandlers.DateTimeHandlers;
 using System;
@@ -30,6 +31,7 @@ namespace kudapoyti.Service.Dtos
         public string Region { get; set; } = string.Empty;
 
         [Required(ErrorMessage ="Plase upload a picture of the place.")]
+        [ImageFile(ErrorMessage = "Please upload a valid image file")]
         public IFormFile? Image { get; set; }
 
         public static implicit operator Place(PlaceCreateDto dto)
