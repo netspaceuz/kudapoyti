@@ -13,10 +13,15 @@ namespace kudapoyti.Service.Dtos
 {
     public class AdminCreateDto
     {
-        [Required, MaxLength(50), MinLength(5)]
+        [Required]
+        [StringLength(40, MinimumLength = 5, ErrorMessage = "The Title should be minimum 5 and maximum 50 characters.")]
         public string FullName { get; set; } = string.Empty;
 
+<<<<<<< HEAD
         [Required, MaxLength(40), MinLength(3), StrongEmail]
+=======
+        [Required, StrongEmail]
+>>>>>>> 63fd3de (minor changes)
         public string Email { get; set; } = string.Empty;
 
         [Required]
@@ -28,7 +33,7 @@ namespace kudapoyti.Service.Dtos
         [Required]
         public string Description { get; set; } = string.Empty;
 
-        [Required, MinLength(8), StrongPassword]
+        [Required,  StrongPassword]
         public string Password { get; set; } = string.Empty;
 
         public static implicit operator Admin1(AdminCreateDto accountRegisterDto)

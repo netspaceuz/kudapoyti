@@ -13,14 +13,14 @@ namespace kudapoyti.Service.Dtos
 {
     public class PlaceCreateDto
     {
-        [Required(ErrorMessage = "Please enter a title that contains minimum 5 and maximum 50 characters.")]
-        [MinLength(5)]
-        [MaxLength(50)]
+        [Required]
+        [StringLength(200, MinimumLength =5, ErrorMessage ="The Title should be minimum 5 and maximum 200 characters.")]
         public string Title { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Please enter a description that contains minimum 10 and maximum 100 characters.")]
-        [MinLength(10)]
-        [MaxLength(100)]
+        [Required(ErrorMessage = "Please enter a type of the place.")]
+        public string Type { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Please enter a description.")]
         public string Description { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Plase etner the link of the location.")]
@@ -28,8 +28,6 @@ namespace kudapoyti.Service.Dtos
 
         [Required(ErrorMessage ="Please select a region.")]
         public string Region { get; set; } = string.Empty;
-
-        public string PlaceSiteUrl { get; set; } = string.Empty;
 
         [Required(ErrorMessage ="Plase upload a picture of the place.")]
         public IFormFile? Image { get; set; }
@@ -41,7 +39,7 @@ namespace kudapoyti.Service.Dtos
                 Title = dto.Title,
                 Description = dto.Description,
                 Location_link = dto.LocationLink,
-                PlaceSiteUrl = dto.PlaceSiteUrl,
+                PlaceSiteUrl = dto.Type,
                 Region = dto.Region,
                 ImageUrl = dto.Image!.ToString()
             };

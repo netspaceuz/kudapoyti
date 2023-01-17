@@ -18,7 +18,7 @@ namespace kudapoyti.Service.Common.Attributes
             Regex regex = new Regex("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$");
 
             return regex.Match(value.ToString()!).Success ? ValidationResult.Success
-                : new ValidationResult("Please enter valid phone number. Phone must be contains only numbers or + character");
+                : new ValidationResult("Please enter valid phone number. Phone Number must contain only numbers and '+' character");
         }
     }
 }
