@@ -19,6 +19,7 @@ using kudapoyti.Service.Common.Utils;
 using kudapoyti.Service.Services.Common;
 using kudapoyti.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace kudapoyti.Service.Services.KudaPaytiService
 {
@@ -124,6 +125,24 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             _repository.Places.UpdateAsync(placeId, place);
             var result = await _repository.SaveChangesAsync();
             return result > 0;
+        }
+
+        public async Task<IEnumerable<PlaceViewModel>> GetTopPLacesAsync()
+        {
+            return await _repository.Places.GetAll().OrderByDescending(x => x)
+                .Take(10).Select(x => _mapper.Map<PlaceViewModel>(x)).ToListAsync();
+        }
+
+        public async Task<IEnumerable<PlaceViewModel>> GetByTypeAsync(PaginationParams @paginationParams,string type)
+        {
+            var query = _repository.Places.GetAll().Where(x => x.PlaceSiteUrl == $"{type}").Select(x => _mapper.Map<PlaceViewModel>(x));
+            return await _paginator.ToPagedAsync(query, @paginationParams.PageNumber, @paginationParams.PageSize);
+        }
+        public async Task<IEnumerable<string>> GetOtherTypes()
+        {
+            var alreadyHavetypes = new List<string> { "Отели", "Развлечения", "Рестораны", "Рассказы о путешествиях", "Авиабилеты" };
+            return await _repository.Places.GetAll().Where(x=>!alreadyHavetypes.Contains(x.PlaceSiteUrl))
+                .Select(x=>x.PlaceSiteUrl).ToListAsync();
         }
     }
 }

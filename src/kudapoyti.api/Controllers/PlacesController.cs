@@ -51,6 +51,15 @@ namespace kudapoyti.api.Controllers
         [HttpPut("[action]/{placeId}"), AllowAnonymous]
         public async Task<IActionResult> RankAsync(long placeId, int rank )
             =>Ok(await _placeService.AddRankPoint(placeId, rank));
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetByTypesAsync(int page,string type)
+            => Ok(await _placeService.GetByTypeAsync(new PaginationParams(page, _pageSize),type));
 
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetOtherTypesAsync()
+            => Ok(await _placeService.GetOtherTypes());
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetTopPlacesAsync()
+            => Ok(await _placeService.GetTopPLacesAsync());
     }
 }
