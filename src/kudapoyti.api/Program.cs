@@ -35,35 +35,39 @@ builder.Services.AddScoped<IPaginationService, PaginatonService>();
 builder.Services.AddScoped<IPlaceService, PlaceService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.ConfigureAuth();
-builder.Services.AddAuthorization(options =>
+builder.Services.AddCors(p => p.AddPolicy("corspolicy", build =>
 {
-    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
-});
+    build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+}));
+
 builder.Services.ConfigureSwaggerAuthorize();
+//database
+builder.ConfigureDataAccess();
+
 //Mapper
 builder.Services.AddAutoMapper(typeof(MapperConfiguration));
 
 //Logger 
 builder.Configuration();
 
-//database
-builder.ConfigureDataAccess();
 //Middleware
 var app = builder.Build();
-app.UseMiddleware<ExceptionHandlerMiddleware>();
-app.UseStaticFiles();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("corspolicy");
+app.UseStaticFiles();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
-app.UseHttpsRedirection();
+if (app.Services.GetService<IHttpContextAccessor>() != null)
+    HttpContextHelper.Accessor = app.Services.GetRequiredService<IHttpContextAccessor>();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
+app.UseHttpsRedirection();
 
 app.Run();
