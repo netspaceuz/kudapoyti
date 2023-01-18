@@ -21,7 +21,5 @@ namespace kudapoyti.Service.Common.Attributes
             }
             return new ValidationResult("Must contain only number!");
         }
-
-
     }
 }
