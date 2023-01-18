@@ -50,7 +50,7 @@ namespace kudapoyti.api.Controllers
                 return Ok(await _placeService.CreateAsync(dto));
             }
             else
-                throw new StatusCodeException(System.Net.HttpStatusCode.Unauthorized, "You haven't access");
+                throw new StatusCodeException(System.Net.HttpStatusCode.Unauthorized, "You haven't got access");
         }
 
         [HttpDelete]

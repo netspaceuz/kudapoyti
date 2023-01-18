@@ -32,23 +32,23 @@ namespace kudapoyti.api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync(int page)
         {
-            List<string> rols = new List<string>() { "SuperAdmin", "Admin" };
-            if (_auth.IsAuthed(rols, _httpContextAccessor.HttpContext))
-            {
-                return Ok(await _admin.GetAllAysnc(new PaginationParams(page, _pageSize)));
-            }
-            else
-                throw new StatusCodeException(System.Net.HttpStatusCode.Unauthorized, "You haven't access");
+                List<string> rols = new List<string>() { "SuperAdmin", "Admin" };
+                if (_auth.IsAuthed(rols, _httpContextAccessor.HttpContext))
+                {
+                    return Ok(await _admin.GetAllAysnc(new PaginationParams(page, _pageSize)));
+                }
+                else
+                    throw new StatusCodeException(System.Net.HttpStatusCode.Unauthorized, "You haven't access");
+            
         }
 
         [HttpPost("RegistrAdmin")]
         public async Task<IActionResult> RegisterAsync([FromForm] AdminCreateDto registerDto)
         {
-            return Ok(await _admin.RegisterAsync(registerDto));
             List<string> rols = new List<string>() { "SuperAdmin"};
             if (_auth.IsAuthed(rols, _httpContextAccessor.HttpContext))
             {
-                
+                return Ok(await _admin.RegisterAsync(registerDto));
             }
             else
                 throw new StatusCodeException(System.Net.HttpStatusCode.Unauthorized, "You haven't access");
