@@ -16,14 +16,23 @@ namespace kudapoyti.Service.Common.Attributes
     {
         public bool IsAuthed(List<string> rols,HttpContext httpContext)
         {
-            var token = httpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-            var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadJwtToken(token);
+            var token = "";
+            try
+            {
+                token = httpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadJwtToken(token);
 
-            string role = jsonToken.Claims.FirstOrDefault(claim => claim.Type.ToLower().Contains("role"))?.Value;
-            if (rols.Contains(role))
-                return true;
-            return false;
+                string role = jsonToken.Claims.FirstOrDefault(claim => claim.Type.ToLower().Contains("role"))?.Value;
+                if (rols.Contains(role))
+                    return true;
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+            
         }
     }
 }
