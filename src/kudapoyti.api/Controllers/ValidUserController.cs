@@ -2,8 +2,10 @@
 using kudapoyti.Service.Common.Exceptions;
 using kudapoyti.Service.Dtos.AccountDTOs;
 using kudapoyti.Service.Helpers;
+using kudapoyti.Service.Interfaces;
 using kudapoyti.Service.Interfaces.CommentServices;
 using kudapoyti.Service.Services;
+using kudapoyti.Service.Services.CommentServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,10 +21,14 @@ namespace kudapoyti.api.Controllers
     public class ValidUserController: ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IAuthenticationAttribute _auth;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ValidUserController(IUserService userService) 
+        public ValidUserController(IHttpContextAccessor contextAccessor,IUserService userService,IAuthenticationAttribute auth) 
         {
             _userService = userService;
+            _auth = auth;
+            _httpContextAccessor= contextAccessor;
         }
         [HttpPost, AllowAnonymous]
         public async Task<IActionResult> LoginAsync([FromForm] UserValidateDto validateDto)
@@ -38,13 +44,13 @@ namespace kudapoyti.api.Controllers
             }
             
         }
-        [HttpGet("verify"), AllowAnonymous]
+        [HttpGet("verify")]
         public async Task<IActionResult> VerifyCodeAsync(string email, [RegularExpression(@"^\d{6}$",
             ErrorMessage = "Code must be 6 digits")] string code)
         {
             try
             {
-                var result = await _userService.VerifyCodeAsync(email,code);
+                var result = await _userService.VerifyCodeAsync(email, code);
                 if (result.Item1 == true)
                 {
                     return Ok($"{result.Item2}");
@@ -56,7 +62,6 @@ namespace kudapoyti.api.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
         }
     }
 }

@@ -9,6 +9,7 @@ using kudapoyti.Service.Services;
 using kudapoyti.Service.Services.KudaPaytiService;
 using Microsoft.Extensions.Caching.Memory;
 using kudapoyti.Service.Services.CommentServices;
+using kudapoyti.Service.Common.Attributes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,11 +20,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 
+
 builder.Services.AddSingleton<IMemoryCache,MemoryCache>();
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IAuthManager, AUthManager>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IAuthenticationAttribute, AuthenticationAttribute>();
 builder.Services.AddSingleton<ICacheService, CacheService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 
