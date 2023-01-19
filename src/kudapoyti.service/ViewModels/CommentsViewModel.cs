@@ -23,6 +23,5 @@ namespace kudapoyti.Service.ViewModels
                 UserName = comment.UserName
             };
         }
-
     }
 }
