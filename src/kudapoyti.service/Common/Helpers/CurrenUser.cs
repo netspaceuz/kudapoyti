@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace kudapoyti.Service.Enums
+namespace kudapoyti.Service.Common.Helpers
 {
-    public enum UserRole
+    public class CurrenUser
     {
-        User = 0,
-        Admin = 1
+        public static string Token { get; set; }
     }
 }

@@ -25,6 +25,6 @@ namespace kudapoyti.Domain.Entities.Admins
         
         public string Salt { get; set; }=String.Empty;
 
-        public Role Role { get; set; }= Role.Admin;
+        public Role Role { get; set; }
     }
 }

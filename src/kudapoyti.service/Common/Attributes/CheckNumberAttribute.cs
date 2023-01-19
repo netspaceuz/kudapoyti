@@ -16,12 +16,10 @@ namespace kudapoyti.Service.Common.Attributes
             if (value is not null && double.TryParse(value.ToString(), out result))
             {
                 if (result <= 0)
-                    return new ValidationResult("Weight must be bigger than 0");
+                    return new ValidationResult("Must be given");
                 return ValidationResult.Success;
             }
-            return new ValidationResult("Must be contain only number!");
+            return new ValidationResult("Must contain only number!");
         }
-
-
     }
 }
