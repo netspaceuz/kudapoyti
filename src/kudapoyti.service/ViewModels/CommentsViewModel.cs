@@ -11,6 +11,5 @@ namespace kudapoyti.Service.ViewModels
         public string Comments { get; set; } = String.Empty;
 
         public string UserName { get; set; } = String.Empty;
-
     }
 }

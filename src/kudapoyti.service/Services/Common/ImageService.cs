@@ -48,7 +48,6 @@ namespace kudapoyti.Service.Services.Common
             }
             catch
             {
-
                 return "";
             }
             finally { stream.Close(); }

@@ -33,9 +33,7 @@ namespace kudapoyti.Service.Services.KudaPaytiService
             this.appDb = appDb;
             this._image=image;
             this._pager=pagination;
-
         }
-
         public async Task<bool> DeleteAysnc(long id)
         {
            var delete=await _work.Admins.FindByIdAsync(id);
